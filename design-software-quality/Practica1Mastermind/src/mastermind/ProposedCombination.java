@@ -11,7 +11,7 @@ class ProposedCombination extends Combination {
 	}
 	
 	private static ArrayList<Color> getProposedCombination() {
-		ArrayList<Color> proposedCombination = new ArrayList<>(Board.MAX_PEG_COLORS);
+		ArrayList<Color> proposedCombination;
 		do {
 			String combString = Console.instance().readString();
 			proposedCombination = parseStringToArrayOfColors(combString);
