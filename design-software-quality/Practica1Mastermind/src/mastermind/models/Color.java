@@ -1,4 +1,4 @@
-package mastermind;
+package mastermind.models;
 
 import java.util.Random;
 
@@ -11,19 +11,19 @@ enum Color {
 	PURPLE('p'), 
 	NULL_COLOR;
 
-	private char color;
+	private char colorInitial;
 
 	private Color() {
 
 	}
 
 	private Color(char color) {
-		this.color = color;
+		this.colorInitial = color;
 	}
 
 	public static Color getInstance(char color) {
 		for (Color col : Color.values()) {
-			if (col.color == color) {
+			if (col.colorInitial == color) {
 				return col;
 			}
 		}
@@ -36,7 +36,7 @@ enum Color {
 	}
 
 	public char getColor() {
-		return color;
+		return colorInitial;
 	}
 
 	public static char[] getAllColorInitials() {

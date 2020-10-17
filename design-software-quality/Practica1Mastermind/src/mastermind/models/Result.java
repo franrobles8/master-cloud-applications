@@ -1,4 +1,4 @@
-package mastermind;
+package mastermind.models;
 
 class Result {
 	private static final int MAX_POSITIONS = 4;

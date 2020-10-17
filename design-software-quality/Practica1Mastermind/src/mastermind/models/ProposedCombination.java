@@ -1,17 +1,19 @@
-package mastermind;
+package mastermind.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import mastermind.views.*;
 import utils.Console;
 
-class ProposedCombination extends Combination {
+public class ProposedCombination extends Combination {
 	
 	ProposedCombination() {
 		super(getProposedCombination());
 	}
 	
-	private static ArrayList<Color> getProposedCombination() {
-		ArrayList<Color> proposedCombination;
+	private static List<Color> getProposedCombination() {
+		List<Color> proposedCombination;
 		do {
 			String combString = Console.instance().readString();
 			proposedCombination = parseStringToArrayOfColors(combString);
@@ -19,21 +21,21 @@ class ProposedCombination extends Combination {
 		return proposedCombination;
 	}
 	
-	private static boolean isProposedCombinationComplete(ArrayList<Color> proposedCombination) {
-		return proposedCombination.size() == Board.MAX_PEG_COLORS 
+	private static boolean isProposedCombinationComplete(List<Color> proposedCombination) {
+		return proposedCombination.size() == Combination.getMaxPegColors() 
 				&& areDifferentAndValidColors(proposedCombination);
 	}
 	
 	private static ArrayList<Color> parseStringToArrayOfColors(String strCombination) {
-		ArrayList<Color> colors = new ArrayList<>(Board.MAX_PEG_COLORS);
-		for(int i = 0; i < Board.MAX_PEG_COLORS; i++) {
+		ArrayList<Color> colors = new ArrayList<>(Combination.getMaxPegColors());
+		for(int i = 0; i < Combination.getMaxPegColors(); i++) {
 			colors.add(Color.getInstance(strCombination.charAt(i)));
 		}
 		return colors;
 	}
 	
-	private static boolean areDifferentAndValidColors(ArrayList<Color> proposedCombination) {
-		ArrayList<Color> proposedCombinationCopy = new ArrayList<>(proposedCombination);
+	private static boolean areDifferentAndValidColors(List<Color> proposedCombination) {
+		List<Color> proposedCombinationCopy = new ArrayList<>(proposedCombination);
 		for(Color color: proposedCombination) {
 			proposedCombinationCopy.remove(color);
 			if(proposedCombinationCopy.contains(color)) {

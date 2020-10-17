@@ -1,17 +1,19 @@
 package mastermind;
 
-import utils.YesNoDialog;
+import mastermind.models.Board;
+import mastermind.views.View;
 
 class MasterMind {
-	private void play() {
-		do {
-			Message.TITTLE.writeln();
-			new Board();
-		} while (this.isResumedGame());
+	private Board board;
+	private View view;
+
+	MasterMind() {
+		this.board = new Board();
+		this.view = new View(this.board);
 	}
 
-	private boolean isResumedGame() {
-		return new YesNoDialog().read(Message.RESUME.toString());
+	private void play() {
+		this.view.interact();
 	}
 
 	public static void main(String[] args) {

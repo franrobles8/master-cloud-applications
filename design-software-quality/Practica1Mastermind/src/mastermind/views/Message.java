@@ -1,9 +1,9 @@
-package mastermind;
+package mastermind.views;
 
 import utils.Console;
 
-enum Message {
-	TITTLE("--- MASTERMIND ---"),
+public enum Message {
+	TITLE("--- MASTERMIND ---"),
 	SEPARATOR("-------------"),
 	PROPOSE_COMBINATION("Propose a combination: "), 
 	X_ROW_COLORS("xxxx"),
@@ -22,11 +22,11 @@ enum Message {
 		this.message = message;
 	}
 	
-	void write() {
+	public void write() {
 		Console.instance().write(this.message);
 	}
 	
-	void writeln() {
+	public void writeln() {
 		Console.instance().writeln(this.message);
 	}
 	
