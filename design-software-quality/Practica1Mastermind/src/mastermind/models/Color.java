@@ -2,7 +2,7 @@ package mastermind.models;
 
 import java.util.Random;
 
-enum Color {
+public enum Color {
 	RED('r'), 
 	BLUE('b'), 
 	YELLOW('y'), 

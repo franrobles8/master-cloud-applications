@@ -21,8 +21,8 @@ public class Board {
 		return isGameFinished;
 	}
 
-	public void addProposedCombination() {
-		this.proposedCombinations[nProposedCombinations] = new ProposedCombination();
+	public void addProposedCombination(ProposedCombination proposedCombination) {
+		this.proposedCombinations[nProposedCombinations] = proposedCombination;
 		this.addResult();
 		this.isMasterMind = this.results[nProposedCombinations].isWinnerCombination();
 		this.isGameFinished = (nProposedCombinations + 1 == MAX_PROPOSED_COMBINATIONS) || isMasterMind;

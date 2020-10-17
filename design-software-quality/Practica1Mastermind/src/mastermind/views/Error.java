@@ -1,6 +1,7 @@
-package mastermind.models;
+package mastermind.views;
 
 import utils.Console;
+import mastermind.models.Color;
 
 enum Error {
 	MUST_CONTAIN_DIFFERENT_COLORS("The proposed combination must contain different colors."), 
