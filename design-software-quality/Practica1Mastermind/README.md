@@ -17,3 +17,7 @@
 ### Instructions
 
 <img src="./img/StatesDiagram.png" />
+
+### Class Diagram
+
+<img src="./img/classDiagram.png" />
