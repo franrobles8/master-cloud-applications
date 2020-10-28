@@ -46,6 +46,10 @@ public class ProposalController extends Controller {
 	public boolean isLooser() {
 		return this.session.isLooser();
 	}
+
+	public boolean isFinished() {
+		return this.session.isFinished();
+	}
 	
 	public int getAttempts() {
 		return this.session.getAttempts();
@@ -61,6 +65,22 @@ public class ProposalController extends Controller {
 
 	public int getWhites(int position) {
 		return this.session.getWhites(position);
+	}
+
+	public void redo() {
+		this.session.redo();
+	}
+
+	public void undo() {
+		this.session.undo();
+	}
+
+	public boolean redoable() {
+		return this.session.redoable();
+	}
+
+	public boolean undoable() {
+		return this.session.undoable();
 	}
 	
 	@Override

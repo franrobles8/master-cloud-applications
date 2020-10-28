@@ -12,6 +12,7 @@ public class Session {
     public Session() {
         this.state = new State();
         this.game = new Game();
+        this.registry = new GameRegistry(this.game);
     }
 
     public StateValue getValueState() {
