@@ -40,7 +40,7 @@ public class Game {
 	}
 	
 	public boolean isWinner() {
-		return this.results.get(this.attempts-1).isWinner();
+		return !this.results.isEmpty() && this.results.get(this.attempts-1).isWinner();
 	}
 
 	public boolean isFinished() {
