@@ -7,6 +7,7 @@ import usantatecla.mastermind.types.Color;
 public class Session {
     private Game game;
     private State state;
+    private GameRegistry registry;
 
     public Session() {
         this.state = new State();
@@ -24,6 +25,7 @@ public class Session {
     public void reset() {
         this.game.clear();
         this.state.reset();
+        this.registry = new GameRegistry(this.game);
     }
 
     public boolean isFinished() {
@@ -56,9 +58,26 @@ public class Session {
 
     public void addProposedCombination(List<Color> colors) {
         this.game.addProposedCombination(colors);
+        this.registry.register();
     }
 
     public int getWidth() {
         return this.game.getWidth();
+    }
+
+    public void undo() {
+        this.registry.undo();
+    }
+
+    public void redo() {
+        this.registry.redo();
+    }
+
+    public boolean undoable() {
+        return this.registry.isUndoable();
+    }
+
+    public boolean redoable() {
+        return this.registry.isRedoable();
     }
 }
