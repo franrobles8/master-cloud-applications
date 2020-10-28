@@ -43,6 +43,10 @@ public class Game {
 		return this.results.get(this.attempts-1).isWinner();
 	}
 
+	public boolean isFinished() {
+		return this.isLooser() || this.isWinner();
+	}
+
 	public int getAttempts() {
 		return this.attempts;
 	}
