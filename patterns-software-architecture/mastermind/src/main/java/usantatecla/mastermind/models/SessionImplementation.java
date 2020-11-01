@@ -8,7 +8,7 @@ public class SessionImplementation implements Session {
     private Game game;
     private State state;
     private GameRegistry registry;
-    
+
     public SessionImplementation() {
         this.state = new State();
         this.game = new Game();
@@ -16,7 +16,7 @@ public class SessionImplementation implements Session {
     }
 
     public StateValue getValueState() {
-		return this.state.getValueState();
+        return this.state.getValueState();
     }
 
     public void next() {

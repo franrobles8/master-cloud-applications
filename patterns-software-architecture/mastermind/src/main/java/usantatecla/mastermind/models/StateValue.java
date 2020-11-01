@@ -6,5 +6,4 @@ public enum StateValue {
 	RESUME,
 	FINAL,
 	EXIT;
-	
 }
