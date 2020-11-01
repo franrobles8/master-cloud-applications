@@ -3,6 +3,7 @@ package usantatecla.mastermind.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import usantatecla.mastermind.types.Error;
 import usantatecla.mastermind.types.Color;
 
 public class Game {
@@ -83,5 +84,24 @@ public class Game {
 		this.proposedCombinations = memento.getGame().getProposedCombinations();
 		this.attempts = memento.getGame().getAttempts();
 		this.results = memento.getGame().getResults();
+	}
+
+	public Error getProposedCombinationError(List<Color> colors) {	
+		if (colors.size() != Combination.getWidth()) {
+			return Error.WRONG_LENGTH;
+		} else {
+			for (int i = 0; i < colors.size(); i++) {
+				if (colors.get(i) == null) {
+					return Error.WRONG_CHARACTERS;
+				} else {
+					for (int j = i+1; j < colors.size(); j++) {
+						if (colors.get(i) == colors.get(j)) {
+							return Error.DUPLICATED;
+						}
+					}
+				}				
+			}
+		}
+		return Error.NULL;
 	}
 }

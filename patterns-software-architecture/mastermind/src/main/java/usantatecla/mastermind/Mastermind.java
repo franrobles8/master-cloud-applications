@@ -1,5 +1,6 @@
 package usantatecla.mastermind;
 
+import usantatecla.mastermind.controllers.AcceptorController;
 import usantatecla.mastermind.controllers.Controller;
 import usantatecla.mastermind.controllers.Logic;
 import usantatecla.mastermind.views.View;
@@ -11,26 +12,20 @@ public abstract class Mastermind {
 	private View view;
 	
 	protected Mastermind() {
-		this.logic = new Logic(this.isStandalone());
-		this.view = this.createView();
+		this.logic = this.createLogic();
+		this.view = new View();
 	}
 	
-	protected abstract View createView();
-
-	protected abstract boolean isStandalone();
+	protected abstract Logic createLogic();
 
 	protected void play() {
-		Controller controller;
+		AcceptorController acceptorController;
 		do {
-			controller = this.logic.getController();
-			if (controller != null){
-				this.view.interact(controller);
+			acceptorController = this.logic.getController();
+			if (acceptorController != null){
+				this.view.interact(acceptorController);
 			}
-		} while (controller != null);
-
-		if(!this.isStandalone()) {
-			this.logic.close();
-		}
+		} while (acceptorController != null);
 	}
 	
 }

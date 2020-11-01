@@ -1,90 +1,77 @@
 package usantatecla.mastermind.controllers;
 
 import java.util.List;
-
-import usantatecla.mastermind.models.Combination;
 import usantatecla.mastermind.models.Session;
+import usantatecla.mastermind.models.SessionImplementation;
 import usantatecla.mastermind.types.Color;
 import usantatecla.mastermind.types.Error;
 
 public class ProposalController extends Controller {
 
+	private SessionImplementation sessionImplementation;
+
 	public ProposalController(Session session) {
 		super(session);
+		this.sessionImplementation = ((SessionImplementation) this.session);
 	}
 
-	public Error addProposedCombination(List<Color> colors) {
-		Error error = null;
-		if (colors.size() != Combination.getWidth()) {
-			error = Error.WRONG_LENGTH;
-		} else {
-			for (int i = 0; i < colors.size(); i++) {
-				if (colors.get(i) == null) {
-					error = Error.WRONG_CHARACTERS;
-				} else {
-					for (int j = i+1; j < colors.size(); j++) {
-						if (colors.get(i) == colors.get(j)) {
-							error = Error.DUPLICATED;
-						}
-					}
-				}				
-			}
-		}
-		if (error == null){
-			this.session.addProposedCombination(colors);
-			if (this.session.isFinished()) {
-				this.session.next();
-			}
-		}
-		return error;	
+	public void addProposedCombination(List<Color> colors) {
+		this.sessionImplementation.addProposedCombination(colors);
 	}
 
 	public boolean isWinner() {
-		return this.session.isWinner();
+		return this.sessionImplementation.isWinner();
 	}
 
 	public boolean isLooser() {
-		return this.session.isLooser();
+		return this.sessionImplementation.isLooser();
 	}
 
 	public boolean isFinished() {
-		return this.session.isFinished();
+		return this.sessionImplementation.isFinished();
 	}
 	
 	public int getAttempts() {
-		return this.session.getAttempts();
+		return this.sessionImplementation.getAttempts();
 	}
 
 	public List<Color> getColors(int position) {
-		return this.session.getColors(position);
+		return this.sessionImplementation.getColors(position);
 	}
 
 	public int getBlacks(int position) {
-		return this.session.getBlacks(position);
+		return this.sessionImplementation.getBlacks(position);
 	}
 
 	public int getWhites(int position) {
-		return this.session.getWhites(position);
+		return this.sessionImplementation.getWhites(position);
 	}
 
 	public void redo() {
-		this.session.redo();
+		this.sessionImplementation.redo();
 	}
 
 	public void undo() {
-		this.session.undo();
+		this.sessionImplementation.undo();
 	}
 
 	public boolean redoable() {
-		return this.session.redoable();
+		return this.sessionImplementation.redoable();
 	}
 
 	public boolean undoable() {
-		return this.session.undoable();
+		return this.sessionImplementation.undoable();
+	}	
+
+	public Error getProposedCombinationError(List<Color> colors){
+		return this.sessionImplementation.getProposedCombinationError(colors);
 	}
-	
-	@Override
-	public void accept(ControllersVisitor controllersVisitor) {
-		controllersVisitor.visit(this);
+
+	public int getWidth() {
+		return this.sessionImplementation.getWidth();
+	}
+
+	public void continueState() {
+		this.sessionImplementation.next();
 	}
 }
