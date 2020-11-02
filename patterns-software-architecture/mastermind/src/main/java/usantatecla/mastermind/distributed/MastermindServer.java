@@ -1,5 +1,7 @@
 package usantatecla.mastermind.distributed;
 
+import usantatecla.mastermind.distributed.dispatchers.DispatcherPrototype;
+
 public class MastermindServer {
     private DispatcherPrototype dispatcherPrototype;
     private LogicImplementationServer logic;

@@ -3,20 +3,20 @@ package usantatecla.mastermind.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import usantatecla.mastermind.controllers.ActionController;
+import usantatecla.mastermind.controllers.ProposalController;
 import usantatecla.mastermind.types.Color;
 import usantatecla.utils.WithConsoleView;
 
 class ProposedCombinationView extends WithConsoleView {
 	
-	private ActionController actionController;
+	private ProposalController proposalController;
 	
-	ProposedCombinationView(ActionController actionController) {
-		this.actionController = actionController;
+	ProposedCombinationView(ProposalController proposalController) {
+		this.proposalController = proposalController;
 	}
 	
 	void write(int position) {
-		for (Color color : this.actionController.getColors(position)) {
+		for (Color color : this.proposalController.getColors(position)) {
 			new usantatecla.mastermind.views.ColorView(color).write();
 		}
 	}

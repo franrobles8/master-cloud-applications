@@ -2,22 +2,22 @@ package usantatecla.mastermind.views;
 
 import java.util.List;
 
-import usantatecla.mastermind.controllers.ActionController;
+import usantatecla.mastermind.controllers.ProposalController;
 import usantatecla.mastermind.types.Color;
 import usantatecla.mastermind.types.Error;
 import usantatecla.utils.Console;
 
 public class ProposalCommand extends Command {
-    ProposalCommand(ActionController actionController) {
-        super(MessageView.PROPOSAL_COMMAND.getMessage(), actionController);
+    ProposalCommand(ProposalController proposalController) {
+        super(MessageView.PROPOSAL_COMMAND.getMessage(), proposalController);
     }
 
     @Override
     protected void execute() {
-        if (!this.actionController.isFinished()) {
+        if (!this.proposalController.isFinished()) {
             this.propose();
         } else {
-            if (this.actionController.isWinner()) {
+            if (this.proposalController.isWinner()) {
                 MessageView.WINNER.writeln();
             } else {
                 MessageView.LOOSER.writeln();
@@ -29,23 +29,23 @@ public class ProposalCommand extends Command {
         Error error;
         Console console = new Console();
         do {
-            List<Color> colors = new ProposedCombinationView(actionController).read();
-            actionController.addProposedCombination(colors);
-            error = actionController.getProposedCombinationError(colors);
-            if (error != null) {
+            List<Color> colors = new ProposedCombinationView(proposalController).read();
+            proposalController.addProposedCombination(colors);
+            error = proposalController.getProposedCombinationError(colors);
+            if (error != Error.NULL) {
                 new ErrorView(error).writeln();
             }
-        } while (error != null);
+        } while (error != Error.NULL);
         console.writeln();
-        new AttemptsView(actionController).writeln();
-        new SecretCombinationView(actionController).writeln();
-        for (int i = 0; i < actionController.getAttempts(); i++) {
-            new ProposedCombinationView(actionController).write(i);
-            new ResultView(actionController).writeln(i);
+        new AttemptsView(proposalController).writeln();
+        new SecretCombinationView(proposalController).writeln();
+        for (int i = 0; i < proposalController.getAttempts(); i++) {
+            new ProposedCombinationView(proposalController).write(i);
+            new ResultView(proposalController).writeln(i);
         }
-        if (actionController.isWinner()) {
+        if (proposalController.isWinner()) {
             console.writeln(MessageView.WINNER.getMessage());
-        } else if (actionController.isLooser()) {
+        } else if (proposalController.isLooser()) {
             console.writeln(MessageView.LOOSER.getMessage());
         }
     }

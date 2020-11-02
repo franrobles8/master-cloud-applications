@@ -1,12 +1,13 @@
 package usantatecla.mastermind.views;
 
 import usantatecla.mastermind.controllers.ActionController;
+import usantatecla.mastermind.controllers.ProposalController;
 
 public abstract class Command extends usantatecla.utils.Command {
-    protected ActionController actionController;
+    protected ProposalController proposalController;
 
-    protected Command(String title, ActionController actionController) {
+    protected Command(String title, ProposalController proposalController) {
         super(title);
-        this.actionController = actionController;
+        this.proposalController = proposalController;
     }
 }

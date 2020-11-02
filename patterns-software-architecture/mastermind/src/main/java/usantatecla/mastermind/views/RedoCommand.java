@@ -1,19 +1,19 @@
 package usantatecla.mastermind.views;
 
-import usantatecla.mastermind.controllers.ActionController;
+import usantatecla.mastermind.controllers.ProposalController;
 
 public class RedoCommand extends Command {
-    RedoCommand(ActionController actionController) {
-        super(MessageView.REDO_COMMAND.getMessage(), actionController);
+    RedoCommand(ProposalController proposalController) {
+        super(MessageView.REDO_COMMAND.getMessage(), proposalController);
     }
 
     @Override
     protected void execute() {
-        this.actionController.redo();
+        this.proposalController.redo();
     }
 
     @Override
     protected boolean isActive() {
-        return this.actionController.redoable();
+        return this.proposalController.redoable();
     }
 }

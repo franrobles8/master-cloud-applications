@@ -1,14 +1,13 @@
 package usantatecla.mastermind.views;
 
-import usantatecla.mastermind.controllers.Controller;
-import usantatecla.mastermind.views.MessageView;
+import usantatecla.mastermind.controllers.AcceptorController;
 import usantatecla.utils.WithConsoleView;
 
 class SecretCombinationView extends WithConsoleView {
 	
-	private Controller controller;
+	private AcceptorController controller;
 	
-	SecretCombinationView(Controller controller) {
+	SecretCombinationView(AcceptorController controller) {
 		super();
 		this.controller = controller;
 	}

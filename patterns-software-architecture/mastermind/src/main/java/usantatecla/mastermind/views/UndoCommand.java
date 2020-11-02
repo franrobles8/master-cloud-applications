@@ -1,19 +1,19 @@
 package usantatecla.mastermind.views;
 
-import usantatecla.mastermind.controllers.ActionController;
+import usantatecla.mastermind.controllers.ProposalController;
 
 public class UndoCommand extends Command{
-    UndoCommand(ActionController actionController) {
-        super(MessageView.UNDO_COMMAND.getMessage(), actionController);
+    UndoCommand(ProposalController proposalController) {
+        super(MessageView.UNDO_COMMAND.getMessage(), proposalController);
     }
 
     @Override
     protected void execute() {
-        this.actionController.undo();
+        this.proposalController.undo();
     }
 
     @Override
     protected boolean isActive() {
-        return this.actionController.undoable();
+        return this.proposalController.undoable();
     }
 }

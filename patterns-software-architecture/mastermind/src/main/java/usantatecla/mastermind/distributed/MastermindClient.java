@@ -1,6 +1,8 @@
 package usantatecla.mastermind.distributed;
 
 
+import usantatecla.mastermind.controllers.Logic;
+
 public class MastermindClient extends usantatecla.mastermind.Mastermind {
     private LogicProxy logicProxy;
 
