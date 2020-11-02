@@ -79,5 +79,22 @@ public class ProposalControllerProxy extends ProposalController {
     public int getWhites(int position) {
 		this.tcpip.send(FrameType.WHITES.name());
         return this.tcpip.receiveInt();
+    }
+    
+    @Override
+    public Error getProposedCombinationError(List<Color> colors){
+		this.tcpip.send(FrameType.PROPOSED_COMBINATION_ERROR.name());
+        return this.tcpip.receiveError();
 	}
+
+    @Override
+	public int getWidth() {
+		this.tcpip.send(FrameType.WIDTH.name());
+        return this.tcpip.receiveInt();
+	}
+
+    @Override
+	public void continueState() {
+        this.tcpip.send(FrameType.CONTINUE.name());
+    }
 }

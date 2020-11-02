@@ -1,5 +1,7 @@
 package usantatecla.mastermind.distributed.dispatchers;
 
+import usantatecla.mastermind.controllers.AcceptorController;
+
 public abstract class Dispatcher {
     protected AcceptorController acceptorController;
 

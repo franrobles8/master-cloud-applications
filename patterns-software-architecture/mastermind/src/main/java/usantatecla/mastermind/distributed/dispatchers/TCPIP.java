@@ -3,6 +3,9 @@ package usantatecla.mastermind.distributed.dispatchers;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
+
+import usantatecla.mastermind.types.Color;
 import usantatecla.mastermind.types.Error;
 
 public class TCPIP extends usantatecla.utils.TCPIP {
@@ -45,6 +48,14 @@ public class TCPIP extends usantatecla.utils.TCPIP {
         } else {
             this.send(value.name());
         }
+    }
+
+    public void send(boolean value) {
+        this.send(value);
+    }
+
+    public void send(List<Color> value) {
+        this.send(value);
     }
 
     public Error receiveError() {
