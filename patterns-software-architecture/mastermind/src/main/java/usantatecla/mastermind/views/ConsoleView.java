@@ -1,9 +1,9 @@
-package usantatecla.mastermind.views.console;
+package usantatecla.mastermind.views;
 
+import usantatecla.mastermind.controllers.ActionController;
 import usantatecla.mastermind.controllers.ProposalController;
 import usantatecla.mastermind.controllers.ResumeController;
 import usantatecla.mastermind.controllers.StartController;
-import usantatecla.mastermind.views.View;
 
 public class ConsoleView extends View {
 	

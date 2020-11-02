@@ -1,14 +1,14 @@
 package usantatecla.mastermind.distributed.dispatchers;
 
-import usantatecla.mastermind.controllers.PlayController;
+import usantatecla.mastermind.controllers.ProposalController;
 
 public class RedoDispatcher extends Dispatcher {
-    public RedoDispatcher(PlayController playController) {
-		super(playController);
+    public RedoDispatcher(ProposalController proposalController) {
+		super(proposalController);
 	}
 
 	@Override
 	public void dispatch() {
-		((PlayController)this.acceptorController).redo();
+		((ProposalController)this.acceptorController).redo();
 	}
 }

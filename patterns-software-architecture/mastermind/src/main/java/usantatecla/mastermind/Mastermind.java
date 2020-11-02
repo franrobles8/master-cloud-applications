@@ -1,7 +1,6 @@
 package usantatecla.mastermind;
 
 import usantatecla.mastermind.controllers.AcceptorController;
-import usantatecla.mastermind.controllers.Controller;
 import usantatecla.mastermind.controllers.Logic;
 import usantatecla.mastermind.views.View;
 

@@ -1,10 +1,10 @@
 package usantatecla.mastermind.distributed.dispatchers;
 
-import usantatecla.mastermind.controllers.PlayController;
+import usantatecla.mastermind.controllers.ProposalController;
 
 public class StateDispatcher extends Dispatcher {
-    public StateDispatcher(PlayController playController) {
-		super(playController);
+    public StateDispatcher(ProposalController proposalController) {
+		super(proposalController);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package usantatecla.mastermind.views.console;
+package usantatecla.mastermind.views;
 
 import usantatecla.mastermind.controllers.ResumeController;
 import usantatecla.mastermind.views.MessageView;

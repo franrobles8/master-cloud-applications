@@ -7,13 +7,13 @@ import usantatecla.mastermind.models.StateValue;
 public class Logic extends usantatecla.mastermind.controllers.Logic {
 
 	protected StartController startController;
-	protected PlayController playController;
+	protected ProposalController playController;
 	protected ResumeController resumeController;
 
 	public Logic() {
 		this.session = new SessionImplementation();
 		this.startController = new StartController(this.session);
-		this.playController = new PlayController(this.session);
+		this.playController = new ProposalController(this.session);
 		this.resumeController = new ResumeController(this.session);
 		this.acceptorControllers.put(StateValue.INITIAL, this.startController);
 		this.acceptorControllers.put(StateValue.IN_GAME, this.playController);

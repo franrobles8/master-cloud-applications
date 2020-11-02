@@ -1,5 +1,6 @@
 package usantatecla.mastermind.distributed;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import usantatecla.mastermind.controllers.ProposalController;
@@ -40,9 +41,12 @@ public class ProposalControllerProxy extends ProposalController {
     }
 
     @Override
-    public Error addProposedCombination(List<Color> colors) {
+    public void addProposedCombination(List<Color> colors) {
+
         this.tcpip.send(FrameType.PROPOSAL.name());
-        return this.tcpip.receiveError();
+        for (Color color: colors) {
+            this.tcpip.send(color);
+        }
     }
 
     @Override
@@ -68,6 +72,17 @@ public class ProposalControllerProxy extends ProposalController {
 		this.tcpip.send(FrameType.ATTEMPTS.name());
         return this.tcpip.receiveInt();
 	}
+
+    @Override
+    public List<Color> getColors(int position) {
+        int combinationWidth = this.getWidth();
+        this.tcpip.send(FrameType.COLORS.name());
+        List<Color> colors = new ArrayList<Color>();
+        for (int i=0; i< combinationWidth; i++) {
+            colors.add(this.tcpip.receiveColor());
+        }
+        return colors;
+    }
 
     @Override
 	public int getBlacks(int position) {

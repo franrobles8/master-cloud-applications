@@ -1,14 +1,14 @@
 package usantatecla.mastermind.distributed.dispatchers;
 
-import usantatecla.mastermind.controllers.PlayController;
+import usantatecla.mastermind.controllers.ProposalController;
 
 public class RedoableDispatcher extends Dispatcher {
-    public RedoableDispatcher(PlayController playController) {
-		super(playController);
+    public RedoableDispatcher(ProposalController proposalController) {
+		super(proposalController);
 	}
 
 	@Override
 	public void dispatch() {
-		this.tcpip.send(((PlayController)this.acceptorController).redoable());
+		this.tcpip.send(((ProposalController)this.acceptorController).redoable());
 	}
 }

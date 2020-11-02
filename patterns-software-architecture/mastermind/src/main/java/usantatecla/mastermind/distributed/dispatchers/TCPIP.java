@@ -66,9 +66,26 @@ public class TCPIP extends usantatecla.utils.TCPIP {
         return Error.valueOf(error);
     }
 
+    public Color receiveColor() {
+        String color = this.receiveLine();
+        if (color.equals("null")) {
+            return null;
+        }
+        return Color.valueOf(color);
+    }
+
+
     @Override
     public void close() {
         this.send(FrameType.CLOSE.name());
         super.close();
+    }
+
+    public void send(Color value) {
+        if (value == null) {
+            this.send("null");
+        } else {
+            this.send(value.name());
+        }
     }
 }

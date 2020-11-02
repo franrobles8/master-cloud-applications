@@ -2,7 +2,7 @@ package usantatecla.mastermind.controllers.implementation;
 
 import java.util.List;
 
-import usantatecla.mastermind.controllers.ProposalController;
+import usantatecla.mastermind.controllers.ActionController;
 import usantatecla.mastermind.controllers.RedoController;
 import usantatecla.mastermind.controllers.UndoController;
 import usantatecla.mastermind.models.Session;
@@ -11,57 +11,57 @@ import usantatecla.mastermind.types.Error;
 
 
 
-public class PlayController extends usantatecla.mastermind.controllers.PlayController {
+public class ProposalController extends usantatecla.mastermind.controllers.ProposalController {
 
-	private ProposalController proposalController;
+	private ActionController actionController;
 	private UndoController undoController;
 	private RedoController redoController;
 	
-	public PlayController(Session session) {
+	public ProposalController(Session session) {
 		super(session);
-		this.proposalController = new ProposalController(this.session);
+		this.actionController = new ActionController(this.session);
 		this.undoController = new UndoController(this.session);
 		this.redoController = new RedoController(this.session);
 	}
 	
 	@Override
 	public void addProposedCombination(List<Color> colors) {
-		this.proposalController.addProposedCombination(colors);
+		this.actionController.addProposedCombination(colors);
 	}
 	
 	@Override
 	public boolean isWinner() {
-		return this.proposalController.isWinner();
+		return this.actionController.isWinner();
 	}
 
 	@Override
 	public boolean isLooser() {
-		return this.proposalController.isLooser();
+		return this.actionController.isLooser();
 	}
 	
 	@Override
 	public boolean isFinished() {
-		return this.proposalController.isFinished();
+		return this.actionController.isFinished();
 	}
 	
 	@Override
 	public int getAttempts() {
-		return this.proposalController.getAttempts();
+		return this.actionController.getAttempts();
 	}
 	
 	@Override
 	public List<Color> getColors(int position) {
-		return this.proposalController.getColors(position);
+		return this.actionController.getColors(position);
 	}
 	
 	@Override
 	public int getBlacks(int position) {
-		return this.proposalController.getBlacks(position);
+		return this.actionController.getBlacks(position);
 	}
 
 	@Override
 	public int getWhites(int position) {
-		return this.proposalController.getWhites(position);	
+		return this.actionController.getWhites(position);
 	}
 
 	@Override
@@ -86,17 +86,17 @@ public class PlayController extends usantatecla.mastermind.controllers.PlayContr
 
 	@Override
 	public void continueState() {
-		this.proposalController.continueState();
+		this.actionController.continueState();
 
 	}
 
 	@Override
 	public Error getProposedCombinationError(List<Color> colors) {
-		return this.proposalController.getProposedCombinationError(colors);
+		return this.actionController.getProposedCombinationError(colors);
 	}
 
 	@Override
 	public int getWidth() {
-		return this.proposalController.getWidth();
+		return this.actionController.getWidth();
 	}
 }

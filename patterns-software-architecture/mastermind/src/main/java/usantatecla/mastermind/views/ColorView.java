@@ -1,6 +1,7 @@
 package usantatecla.mastermind.views;
 
 import usantatecla.mastermind.types.Color;
+import usantatecla.utils.Console;
 
 public class ColorView {
 	
@@ -33,4 +34,7 @@ public class ColorView {
 		return null;
 	}
 
+	void write() {
+		new Console().write(ColorView.INITIALS[this.color.ordinal()]);
+	}
 }
