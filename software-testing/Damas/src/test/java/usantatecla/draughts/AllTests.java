@@ -9,7 +9,7 @@ import usantatecla.draughts.models.AllModelTests;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ 
-    AllModelTest.class, 
-    AllViewTest.class } )
+    AllModelTests.class
+})
 public final class AllTests {
 }
