@@ -4,6 +4,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class CoordinateTest {
 
     @Test
@@ -35,11 +39,56 @@ public class CoordinateTest {
     }
 
     @Test
-    public void givenTwoCoordinatesWhenGetBetweenDiagonalCoordinateThenOk() {
-        assertEquals(new Coordinate(1, 1), new Coordinate(2, 2).getBetweenDiagonalCoordinate(new Coordinate(0, 0)));
-        assertEquals(new Coordinate(3, 1), new Coordinate(2, 2).getBetweenDiagonalCoordinate(new Coordinate(4, 0)));
-        assertEquals(new Coordinate(3, 3), new Coordinate(2, 2).getBetweenDiagonalCoordinate(new Coordinate(4, 4)));
-        assertEquals(new Coordinate(1, 3), new Coordinate(2, 2).getBetweenDiagonalCoordinate(new Coordinate(0, 4)));
+    public void givenTwoCoordinatesWhenGetBetweenDiagonalCoordinateThenSuccessfull() {
+        
+        assertEquals(new Coordinate(4, 3), new Coordinate(5, 2).getBetweenDiagonalCoordinate(new Coordinate(3, 4)));
+        assertEquals(new Coordinate(4, 1), new Coordinate(5, 2).getBetweenDiagonalCoordinate(new Coordinate(3, 0)));
+        assertEquals(new Coordinate(3, 3), new Coordinate(5, 2).getBetweenDiagonalCoordinate(new Coordinate(7, 0)));
+        assertEquals(new Coordinate(1, 3), new Coordinate(5, 2).getBetweenDiagonalCoordinate(new Coordinate(7, 4)));
+    }
+
+    @Test
+    public void givenTwoCoordinatesWhenGetDiagonalDistanceThenResult() {
+        assertEquals(7, new Coordinate(0, 0).getDiagonalDistance(new Coordinate(7, 7)));
+        assertEquals(5, new Coordinate(0, 7).getDiagonalDistance(new Coordinate(-5, 2)));
+    }
+
+    @Test
+    public void givenCoordinateWhenGetDiagonalCoordinatesWithOneDistanceThenEquals(){
+        Coordinate coordinate = new Coordinate(1,5);
+        List<Coordinate> diagonalCoordinates = Arrays.asList(new Coordinate[]{
+            new Coordinate(2,6),
+            new Coordinate(0,6),
+            new Coordinate(0,4),
+            new Coordinate(2,4)
+        });
+
+        assertEquals(diagonalCoordinates, coordinate.getDiagonalCoordinates(1));
+    }
+
+    @Test
+    public void givenCoordinateWhenGetDiagonalCoordinatesWithTwoDistanceThenEquals(){
+        Coordinate coordinate = new Coordinate(1,5);
+        List<Coordinate> diagonalCoordinates = Arrays.asList(new Coordinate[]{
+            new Coordinate(3,7),
+            new Coordinate(3,3),
+        });
+        assertEquals(diagonalCoordinates, coordinate.getDiagonalCoordinates(2));
+    }
+
+    @Test
+    public void givenCoordinateWhenGetDiagonalCoordinatesThenEmpty(){
+        Coordinate coordinateOrigin = new Coordinate(0,0);
+        Coordinate coordinateTarget = new Coordinate(1,1);
+        assertEquals(new ArrayList<Coordinate>(), coordinateOrigin.getBetweenDiagonalCoordinates(coordinateTarget));
+    }
+
+    @Test
+    public void testGivenCoordinateWhenGetDiagonalCoordinatesThenNotEmpty(){
+        Coordinate coordinateOrigin = new Coordinate(7,7);
+        Coordinate coordinateTarget = new Coordinate(5,5);
+        List<Coordinate> coordinates = Arrays.asList(new Coordinate(6,6));
+        assertEquals(coordinates, coordinateOrigin.getBetweenDiagonalCoordinates(coordinateTarget));
     }
 
 
