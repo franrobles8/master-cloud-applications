@@ -8,7 +8,10 @@ import org.junit.runners.Suite;
     CancelControllerTest.class,
     ControllerTest.class,
     LogicTest.class,
-    MoveControllerTest.class
+    MoveControllerTest.class,
+    PlayControllerTest.class,
+    ResumeControllerTest.class,
+    StartControllerTest.class
 })
 public final class AllControllersTest {
 }
