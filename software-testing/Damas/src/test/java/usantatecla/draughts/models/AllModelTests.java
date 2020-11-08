@@ -5,8 +5,13 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ 
-    //DirectionTest.class,
-    CoordinateTest.class, 
+    CoordinateTest.class,
+    DirectionTest.class,
+    DraughtTest.class,
+    GameTest.class,
+    PawnTest.class,
+    StateTest.class,
+    TurnTest.class
     // PieceTest.class,
     // GameBuilderTest.class,
     // InitialGameTest.class,

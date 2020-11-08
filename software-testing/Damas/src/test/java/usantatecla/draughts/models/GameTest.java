@@ -7,40 +7,33 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 
 public class GameTest {
 
-    private Game game;
-
-    @Before
-    public void before() {
-        game = new Game(new Board());
-        game.reset();
+    @Test
+    public void givenMovementEmptyOriginReturnsEmptyOriginErrorTest() {
+        assertThat(new GameBuilder().build().move(new Coordinate[] { new Coordinate(0, 0), new Coordinate(0, 1) }),
+                is(Error.EMPTY_ORIGIN));
     }
 
     @Test
-    public void moveReturnsEmptyOriginErrorTest() {
-        assertThat(game.move(new Coordinate[] { new Coordinate(0, 0), new Coordinate(0, 1) }), is(Error.EMPTY_ORIGIN));
-    }
-
-    @Test
-    public void moveReturnsOppositePieceErrorTest() {
-        assertThat(game.move(new Coordinate[] { new Coordinate(1, 2), new Coordinate(2, 2) }),
+    public void givenMovementSamePieceTargetReturnsOppositePieceErrorTest() {
+        assertThat(new GameBuilder().build().move(new Coordinate[] { new Coordinate(1, 2), new Coordinate(2, 2) }),
                 is(Error.OPPOSITE_PIECE));
     }
 
     @Test
-    public void moveReturnsNotEmptyTargetErrorTest() {
-        assertThat(game.move(new Coordinate[] { new Coordinate(6, 1), new Coordinate(5, 0) }),
+    public void givenMovementOccupiedTargetReturnsNotEmptyTargetErrorTest() {
+        assertThat(new GameBuilder().build().move(new Coordinate[] { new Coordinate(6, 1), new Coordinate(5, 0) }),
                 is(Error.NOT_EMPTY_TARGET));
     }
 
     @Test
-    public void moveSuccessfulTest() {
+    public void givenValidMovementMovesSuccessfullyTest() {
+        Game game = new GameBuilder().build();
         Color actualTurnColor = game.getTurnColor();
         game.move(new Coordinate[] { new Coordinate(5, 0), new Coordinate(4, 1) });
         Color resultTurnColor = game.getTurnColor();
@@ -49,25 +42,24 @@ public class GameTest {
 
     @Test
     public void givenCoordinatesWhenOneIsNotBlockedReturnsFalse() {
-        assertFalse(game.isBlocked());
+        assertFalse(new GameBuilder().build().isBlocked());
     }
 
     @Test
     public void givenCoordinatesWhenAllAreBlockedReturnTrue() {
-        Board preparedBlockedBoard = new Board();
-        preparedBlockedBoard.put(new Coordinate(0, 1), new Pawn(Color.WHITE));
-        Game newGame = new Game(preparedBlockedBoard);
-        assertTrue(newGame.isBlocked());
+        GameBuilder gameBuilder = new GameBuilder().row(0, " b      ");
+        assertTrue(gameBuilder.build().isBlocked());
     }
 
     @Test
     public void givenCoordinatesWithTurnColorWhenCancelRemoveThemAndChangeTurn() {
+        Game game = new GameBuilder().build();
         List<Coordinate> turnColorCoordinates = new ArrayList<>();
         Color turnColor = game.getTurnColor();
         game.cancel();
-        for(int i = 0 ; i < Coordinate.getDimension(); i++) {
-            for(int j = 0 ; j < Coordinate.getDimension(); j++) {
-                if(game.getColor(new Coordinate(i, j)) == turnColor)
+        for (int i = 0; i < Coordinate.getDimension(); i++) {
+            for (int j = 0; j < Coordinate.getDimension(); j++) {
+                if (game.getColor(new Coordinate(i, j)) == turnColor)
                     turnColorCoordinates.add(new Coordinate(i, j));
             }
         }
