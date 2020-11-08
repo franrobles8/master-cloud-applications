@@ -1,5 +1,7 @@
 package usantatecla.draughts.models;
 
+import java.util.Set;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 public class GameBuilder {
@@ -17,10 +19,18 @@ public class GameBuilder {
         return this;
     }
 
+    public GameBuilder rows (Set<Entry<Integer, String>> set){
+        for (Entry<Integer,String> row : set){
+            assert row.getKey() < Coordinate.getDimension() && row.getKey() >= 0;
+            gameRows[row.getKey()] = row.getValue();
+        }
+        return this;
+    }
+
     public GameBuilder row (int row, String gameRow) {
         int gameDimension = Coordinate.getDimension();
         assert Pattern.matches("[bBnN ]{" + gameDimension + "}", gameRow);
-        assert row <= gameDimension && row >= 0;
+        assert row < gameDimension && row >= 0;
         
         gameRows[row] = gameRow;
 

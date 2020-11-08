@@ -11,15 +11,10 @@ import org.junit.runners.Suite;
     GameTest.class,
     PawnTest.class,
     StateTest.class,
-    TurnTest.class
-    // PieceTest.class,
-    // GameBuilderTest.class,
-    // InitialGameTest.class,
-    // IncorrectMovesPawnGameTest.class,
-    // CorrectMovesPawnGameTest.class,
-    // IncorrectMovesDraughtGameTest.class,
-    // CorrectMovesDraughtGameTest.class,
-    // IsBlockedGameTest.class } )
+    TurnTest.class,
+    IncorrectDraughtTest.class,
+    CorrectDraughtTest.class,
+    GameBuilderTest.class
 })
 public final class AllModelTests {
 }
