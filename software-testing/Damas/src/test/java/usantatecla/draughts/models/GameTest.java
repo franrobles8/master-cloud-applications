@@ -14,25 +14,25 @@ import static org.hamcrest.CoreMatchers.not;
 public class GameTest {
 
     @Test
-    public void givenMovementEmptyOriginReturnsEmptyOriginErrorTest() {
+    public void givenMovementWhenEmptyOriginThenReturnsEmptyOriginError() {
         assertThat(new GameBuilder().build().move(new Coordinate[] { new Coordinate(0, 0), new Coordinate(0, 1) }),
                 is(Error.EMPTY_ORIGIN));
     }
 
     @Test
-    public void givenMovementSamePieceTargetReturnsOppositePieceErrorTest() {
+    public void givenMovementWhenSamePieceTargetThenReturnsOppositePieceError() {
         assertThat(new GameBuilder().build().move(new Coordinate[] { new Coordinate(1, 2), new Coordinate(2, 2) }),
                 is(Error.OPPOSITE_PIECE));
     }
 
     @Test
-    public void givenMovementOccupiedTargetReturnsNotEmptyTargetErrorTest() {
+    public void givenMovementWhenOccupiedTargetThenReturnsNotEmptyTargetError() {
         assertThat(new GameBuilder().build().move(new Coordinate[] { new Coordinate(6, 1), new Coordinate(5, 0) }),
                 is(Error.NOT_EMPTY_TARGET));
     }
 
     @Test
-    public void givenValidMovementMovesSuccessfullyTest() {
+    public void givenMovementWhenIsValidThenMovesSuccessfully() {
         Game game = new GameBuilder().build();
         Color actualTurnColor = game.getTurnColor();
         game.move(new Coordinate[] { new Coordinate(5, 0), new Coordinate(4, 1) });
@@ -41,18 +41,18 @@ public class GameTest {
     }
 
     @Test
-    public void givenCoordinatesWhenOneIsNotBlockedReturnsFalse() {
+    public void givenCoordinatesWhenOneIsNotBlockedThenReturnsFalse() {
         assertFalse(new GameBuilder().build().isBlocked());
     }
 
     @Test
-    public void givenCoordinatesWhenAllAreBlockedReturnTrue() {
+    public void givenCoordinatesWhenAllAreBlockedThenReturnTrue() {
         GameBuilder gameBuilder = new GameBuilder().row(0, " b      ");
         assertTrue(gameBuilder.build().isBlocked());
     }
 
     @Test
-    public void givenCoordinatesWithTurnColorWhenCancelRemoveThemAndChangeTurn() {
+    public void givenCoordinatesWithTurnColorWhenCancelThenRemoveThemAndChangeTurn() {
         Game game = new GameBuilder().build();
         List<Coordinate> turnColorCoordinates = new ArrayList<>();
         Color turnColor = game.getTurnColor();

@@ -13,87 +13,81 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;;
 
 public class PawnTest {
-    private Pawn pawn;
+    private Pawn whitePawn = new Pawn(Color.WHITE);
+    private Pawn blackPawn = new Pawn(Color.BLACK);
 
     @Before
     public void before() {
-        pawn = new Pawn(Color.WHITE);
+        this.whitePawn = new Pawn(Color.WHITE);
+        this.blackPawn = new Pawn(Color.BLACK);
     }
 
     @Test
-    public void givenInvalidBackwardMovementReturnsNotAdvancedError() {
-        Error error = pawn.isCorrectDiagonalMovement(0, 0,
+    public void givenMovementWhenIsBackwardThenReturnsNotAdvancedError() {
+        Error error = this.whitePawn.isCorrectDiagonalMovement(0, 0,
                 new Coordinate[] { new Coordinate(6, 1), new Coordinate(7, 0) });
         assertThat(error, is(Error.NOT_ADVANCED));
     }
 
     @Test
-    public void givenDiagonalDistanceBiggerThanTwoReturnsTooMuchAdvancedError() {
-        Error error = pawn.isCorrectDiagonalMovement(0, 0,
+    public void givenDiagonalDistanceWhenIsBiggerThanTwoThenReturnsTooMuchAdvancedError() {
+        Error error = this.whitePawn.isCorrectDiagonalMovement(0, 0,
                 new Coordinate[] { new Coordinate(7, 0), new Coordinate(4, 3) });
         assertThat(error, is(Error.TOO_MUCH_ADVANCED));
     }
 
     @Test
-    public void givenMaxDiagonalDistanceButNoEatReturnsWithoutEatingError() {
-        Error error = pawn.isCorrectDiagonalMovement(0, 0,
+    public void givenMaxDiagonalDistanceWhenNotEatenThenReturnsWithoutEatingError() {
+        Error error = this.whitePawn.isCorrectDiagonalMovement(0, 0,
                 new Coordinate[] { new Coordinate(7, 0), new Coordinate(5, 2) });
         assertThat(error, is(Error.WITHOUT_EATING));
     }
 
     @Test
-    public void givenCorrectDiagonalMovementReturnsNoError() {
-        Error error = pawn.isCorrectDiagonalMovement(1, 0,
+    public void givenMovementWhenIsCorrectDiagonalThenReturnsNoError() {
+        Error error = this.whitePawn.isCorrectDiagonalMovement(1, 0,
                 new Coordinate[] { new Coordinate(7, 0), new Coordinate(5, 2) });
         assertThat(error, is(nullValue()));
     }
 
     @Test
-    public void givenMovementNotInDiagonalReturnsNotDiagonalError() {
-        Error error = pawn.isCorrectMovement(new ArrayList<Piece>(), 0,
+    public void givenMovementWhenNotInDiagonalThenReturnsNotDiagonalError() {
+        Error error = this.whitePawn.isCorrectMovement(new ArrayList<Piece>(), 0,
                 new Coordinate[] { new Coordinate(7, 0), new Coordinate(5, 1) });
         assertThat(error, is(Error.NOT_DIAGONAL));
     }
 
     @Test
-    public void givenSameColorDiagonalEatingReturnsColleagueEatingError() {
+    public void givenSameColorWhenDiagonalEatingThenReturnsColleagueEatingError() {
         List<Piece> diagonalPieces = new ArrayList<>();
         diagonalPieces.add(new Pawn(Color.WHITE));
-        Error error = pawn.isCorrectMovement(diagonalPieces, 0,
+        Error error = this.whitePawn.isCorrectMovement(diagonalPieces, 0,
                 new Coordinate[] { new Coordinate(7, 0), new Coordinate(6, 1) });
         assertThat(error, is(Error.COLLEAGUE_EATING));
     }
 
     @Test
-    public void givenCoordinateInLimitRowReturnsTrue() {
-        Pawn whitePawn = new Pawn(Color.WHITE);
-        Pawn blackPawn = new Pawn(Color.BLACK);
-        assertTrue(whitePawn.isLimit(new Coordinate(whiteLimitRow(), 1)));
-        assertTrue(blackPawn.isLimit(new Coordinate(blackLimitRow(), 0)));
+    public void givenCoordinateWhenInLimitRowThenReturnsTrue() {
+        assertTrue(this.whitePawn.isLimit(new Coordinate(whiteLimitRow(), 1)));
+        assertTrue(this.blackPawn.isLimit(new Coordinate(blackLimitRow(), 0)));
     }
 
     @Test
-    public void givenCoordinateNotInLimitRowReturnsFalse() {
-        Pawn whitePawn = new Pawn(Color.WHITE);
-        Pawn blackPawn = new Pawn(Color.BLACK);
-        assertFalse(whitePawn.isLimit(new Coordinate(whiteLimitRow() + 1, 1)));
-        assertFalse(blackPawn.isLimit(new Coordinate(blackLimitRow() - 1, 0)));
+    public void givenCoordinateWhenNotInLimitRowThenReturnsFalse() {
+        assertFalse(this.whitePawn.isLimit(new Coordinate(whiteLimitRow() + 1, 1)));
+        assertFalse(this.blackPawn.isLimit(new Coordinate(blackLimitRow() - 1, 0)));
     }
 
     @Test
-    public void givenBackwardTargetCoordinateIsAdvancedReturnsFalse() {
-        Pawn whitePawn = new Pawn(Color.WHITE);
-        Pawn blackPawn = new Pawn(Color.BLACK);
-        assertFalse(whitePawn.isAdvanced(new Coordinate(6, 1), new Coordinate(7, 0)));
-        assertFalse(blackPawn.isAdvanced(new Coordinate(1, 0), new Coordinate(0, 1)));
+    public void givenBackwardTargetWhenCoordinateIsAdvancedThenReturnsFalse() {
+        assertFalse(this.whitePawn.isAdvanced(new Coordinate(6, 1), new Coordinate(7, 0)));
+        assertFalse(this.blackPawn.isAdvanced(new Coordinate(1, 0), new Coordinate(0, 1)));
     }
 
     @Test
-    public void givenForwardTargetCoordinateIsAdvancedReturnsTrue() {
-        Pawn whitePawn = new Pawn(Color.WHITE);
-        Pawn blackPawn = new Pawn(Color.BLACK);
-        assertTrue(whitePawn.isAdvanced(new Coordinate(7, 0), new Coordinate(6, 1)));
-        assertTrue(blackPawn.isAdvanced(new Coordinate(0, 1), new Coordinate(1, 0)));
+    public void givenForwardTargetWhenCoordinateIsAdvancedThenReturnsTrue() {
+        assertTrue(this.whitePawn.isAdvanced(new Coordinate(7, 0), new Coordinate(6, 1)));
+        assertTrue(this.blackPawn.isAdvanced(new Coordinate(0, 1), new Coordinate(1, 0)));
     }
 
     private int whiteLimitRow() {

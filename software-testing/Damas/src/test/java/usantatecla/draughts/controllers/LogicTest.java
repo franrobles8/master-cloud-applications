@@ -9,7 +9,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 
 public class LogicTest {
     @Test
-    public void givenStateReturnSpecificController() {
+    public void givenStateWhenGetControllerThenReturnSpecificController() {
         Logic logic = new Logic();
         assertThat(logic.getController(), instanceOf(StartController.class));
         logic.getController().state.next();

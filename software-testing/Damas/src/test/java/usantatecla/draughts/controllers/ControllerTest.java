@@ -11,14 +11,14 @@ import static org.junit.Assert.assertThat;
 
 public class ControllerTest {
     @Test
-    public void givenACoordinateWhenIsInGameReturnsColor() {
+    public void givenACoordinateWhenIsInGameThenReturnsColor() {
         Game game = new GameBuilder().row(0, " n      ").build();
         State state = new State();
         assertThat(new Controller(game, state).getColor(new Coordinate(0, 1)), is(Color.BLACK));
     }
 
     @Test
-    public void returnsDimension() {
+    public void givenGameDimensionWhenControllerGetDimensionThenIsEqual() {
         Game game = new GameBuilder().build();
         State state = new State();
         assertThat(new Controller(game, state).getDimension(), is(game.getDimension()));

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CancelControllerTest {
     @Test
-    public void givenGameAndStateCancelChangesTurnColorAndRemovesColors() {
+    public void givenGameAndStateWhenCancelThenChangesTurnColorAndRemovesColors() {
         Game game = new GameBuilder().build();
         State state = new State();
         CancelController cancelController = new CancelController(game, state);

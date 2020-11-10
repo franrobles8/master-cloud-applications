@@ -14,7 +14,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class MoveControllerTest {
     @Test
-    public void givenMovementWhenIsSuccessfulAndBlockedChangeState() {
+    public void givenMovementWhenIsSuccessfulAndBlockedThenChangeState() {
         Game game = new GameBuilder().row(0, " b      ").build();
         State state = new State();
         MoveController moveController = new MoveController(game, state);
