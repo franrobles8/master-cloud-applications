@@ -5,7 +5,7 @@ import usantatecla.draughts.models.Coordinate;
 import usantatecla.draughts.models.Game;
 import usantatecla.draughts.models.State;
 
-class Controller {
+public class Controller {
 
     protected Game game;
     protected State state;

@@ -63,7 +63,7 @@ class PlayView extends SubView {
 
     private Coordinate[] getCoordinates() {
         assert this.isMoveFormat();
-        List<Coordinate> coordinateList = new ArrayList<Coordinate>();
+        List<Coordinate> coordinateList = new ArrayList<>();
         while (string.length() > 0){
             coordinateList.add(Coordinate.getInstance(string.substring(0, 2)));
             string = string.substring(2, string.length());
