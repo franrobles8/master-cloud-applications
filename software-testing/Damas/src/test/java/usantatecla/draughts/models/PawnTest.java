@@ -5,12 +5,12 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;;
 
 public class PawnTest {
     private Pawn whitePawn = new Pawn(Color.WHITE);
@@ -22,48 +22,50 @@ public class PawnTest {
         this.blackPawn = new Pawn(Color.BLACK);
     }
 
+    private void assertErrorIsCorrectDiagonalMovement(Error expectedError, int amountBetweenDiagonalPieces, int pair,
+            Coordinate... coordinates) {
+        Error error = this.whitePawn.isCorrectDiagonalMovement(amountBetweenDiagonalPieces, pair, coordinates);
+        assertThat(error, is(expectedError));
+    }
+
+    private void assertIsCorrectMovement(Error expectedError, List<Piece> diagonalPieces, int pair,
+            Coordinate... coordinates) {
+        Error error = this.whitePawn.isCorrectMovement(diagonalPieces, pair, coordinates);
+        assertThat(error, is(expectedError));
+    }
+
     @Test
     public void givenMovementWhenIsBackwardThenReturnsNotAdvancedError() {
-        Error error = this.whitePawn.isCorrectDiagonalMovement(0, 0,
-                new Coordinate[] { new Coordinate(6, 1), new Coordinate(7, 0) });
-        assertThat(error, is(Error.NOT_ADVANCED));
+        this.assertErrorIsCorrectDiagonalMovement(Error.NOT_ADVANCED, 0, 0, new Coordinate(6, 1), new Coordinate(7, 0));
     }
 
     @Test
     public void givenDiagonalDistanceWhenIsBiggerThanTwoThenReturnsTooMuchAdvancedError() {
-        Error error = this.whitePawn.isCorrectDiagonalMovement(0, 0,
-                new Coordinate[] { new Coordinate(7, 0), new Coordinate(4, 3) });
-        assertThat(error, is(Error.TOO_MUCH_ADVANCED));
+        this.assertErrorIsCorrectDiagonalMovement(Error.TOO_MUCH_ADVANCED, 0, 0, new Coordinate(7, 0),
+                new Coordinate(4, 3));
     }
 
     @Test
     public void givenMaxDiagonalDistanceWhenNotEatenThenReturnsWithoutEatingError() {
-        Error error = this.whitePawn.isCorrectDiagonalMovement(0, 0,
-                new Coordinate[] { new Coordinate(7, 0), new Coordinate(5, 2) });
-        assertThat(error, is(Error.WITHOUT_EATING));
+        this.assertErrorIsCorrectDiagonalMovement(Error.WITHOUT_EATING, 0, 0, new Coordinate(7, 0),
+                new Coordinate(5, 2));
     }
 
     @Test
     public void givenMovementWhenIsCorrectDiagonalThenReturnsNoError() {
-        Error error = this.whitePawn.isCorrectDiagonalMovement(1, 0,
-                new Coordinate[] { new Coordinate(7, 0), new Coordinate(5, 2) });
-        assertThat(error, is(nullValue()));
+        this.assertErrorIsCorrectDiagonalMovement(null, 1, 0, new Coordinate(7, 0), new Coordinate(5, 2));
     }
 
     @Test
     public void givenMovementWhenNotInDiagonalThenReturnsNotDiagonalError() {
-        Error error = this.whitePawn.isCorrectMovement(new ArrayList<Piece>(), 0,
-                new Coordinate[] { new Coordinate(7, 0), new Coordinate(5, 1) });
-        assertThat(error, is(Error.NOT_DIAGONAL));
+        this.assertIsCorrectMovement(Error.NOT_DIAGONAL, new ArrayList<Piece>(), 0, new Coordinate(7, 0),
+                new Coordinate(5, 1));
     }
 
     @Test
     public void givenSameColorWhenDiagonalEatingThenReturnsColleagueEatingError() {
-        List<Piece> diagonalPieces = new ArrayList<>();
-        diagonalPieces.add(new Pawn(Color.WHITE));
-        Error error = this.whitePawn.isCorrectMovement(diagonalPieces, 0,
-                new Coordinate[] { new Coordinate(7, 0), new Coordinate(6, 1) });
-        assertThat(error, is(Error.COLLEAGUE_EATING));
+        this.assertIsCorrectMovement(Error.COLLEAGUE_EATING, Arrays.asList(new Pawn(Color.WHITE)), 0,
+                new Coordinate(7, 0), new Coordinate(6, 1));
     }
 
     @Test
@@ -74,8 +76,8 @@ public class PawnTest {
 
     @Test
     public void givenCoordinateWhenNotInLimitRowThenReturnsFalse() {
-        assertFalse(this.whitePawn.isLimit(new Coordinate(whiteLimitRow() + 1, 1)));
-        assertFalse(this.blackPawn.isLimit(new Coordinate(blackLimitRow() - 1, 0)));
+        assertFalse(this.whitePawn.isLimit(new Coordinate(whiteLimitRow() + moveWhiteForward(1), 1)));
+        assertFalse(this.blackPawn.isLimit(new Coordinate(blackLimitRow() + moveBlackForward(1), 0)));
     }
 
     @Test
@@ -96,5 +98,13 @@ public class PawnTest {
 
     private int blackLimitRow() {
         return Coordinate.getDimension() - 1;
+    }
+
+    private int moveBlackForward(int nRows) {
+        return nRows;
+    }
+
+    private int moveWhiteForward(int nRows) {
+        return -nRows;
     }
 }

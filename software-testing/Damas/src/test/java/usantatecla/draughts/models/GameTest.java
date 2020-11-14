@@ -18,19 +18,19 @@ public class GameTest {
 
     @Test
     public void givenMovementWhenEmptyOriginThenReturnsEmptyOriginError() {
-        assertThat(new GameBuilder().build().move(new Coordinate[] { new Coordinate(0, 0), new Coordinate(0, 1) }),
+        assertThat(new GameBuilder().build().move(new Coordinate(0, 0), new Coordinate(0, 1)),
                 is(Error.EMPTY_ORIGIN));
     }
 
     @Test
     public void givenMovementWhenSamePieceTargetThenReturnsOppositePieceError() {
-        assertThat(new GameBuilder().build().move(new Coordinate[] { new Coordinate(1, 2), new Coordinate(2, 2) }),
+        assertThat(new GameBuilder().build().move(new Coordinate(1, 2), new Coordinate(2, 2)),
                 is(Error.OPPOSITE_PIECE));
     }
 
     @Test
     public void givenMovementWhenOccupiedTargetThenReturnsNotEmptyTargetError() {
-        assertThat(new GameBuilder().build().move(new Coordinate[] { new Coordinate(6, 1), new Coordinate(5, 0) }),
+        assertThat(new GameBuilder().build().move(new Coordinate(6, 1), new Coordinate(5, 0)),
                 is(Error.NOT_EMPTY_TARGET));
     }
 
@@ -38,7 +38,7 @@ public class GameTest {
     public void givenMovementWhenIsValidThenMovesSuccessfully() {
         Game game = new GameBuilder().build();
         Color actualTurnColor = game.getTurnColor();
-        game.move(new Coordinate[] { new Coordinate(5, 0), new Coordinate(4, 1) });
+        game.move(new Coordinate(5, 0), new Coordinate(4, 1));
         Color resultTurnColor = game.getTurnColor();
         assertThat(resultTurnColor, not(is(actualTurnColor)));
     }
