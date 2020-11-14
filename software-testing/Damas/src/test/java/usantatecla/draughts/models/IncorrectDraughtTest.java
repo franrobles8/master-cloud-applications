@@ -2,33 +2,12 @@ package usantatecla.draughts.models;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.List;
-import java.util.Map.Entry;
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import usantatecla.draughts.models.builders.game.GameBuilder;
 import usantatecla.draughts.models.builders.game.GameMother;
 
 public class IncorrectDraughtTest extends DraughtTest {
-
-    private Map<Integer, String> rows;
-    private Color color;
-
-    // @Override
-    // protected void setGame(Color color, Map<Integer, String> rows) {
-    //     this.color = color;
-    //     this.rows = rows;
-    //     super.setGame(color, rows);
-    // }
-
-
 
     @Before
     public void setUp(){
