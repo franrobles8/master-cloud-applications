@@ -1,10 +1,14 @@
-package usantatecla.draughts.models;
+package usantatecla.draughts.models.builders.game;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import usantatecla.draughts.models.Color;
+import usantatecla.draughts.models.Coordinate;
+import usantatecla.draughts.models.Game;
 
 public class GameBuilderTest {
     

@@ -7,10 +7,11 @@ import static org.hamcrest.CoreMatchers.allOf;
 import usantatecla.draughts.models.Color;
 import usantatecla.draughts.models.Coordinate;
 import usantatecla.draughts.models.Game;
-import usantatecla.draughts.models.GameBuilder;
 import usantatecla.draughts.models.Piece;
 import usantatecla.draughts.models.State;
 import usantatecla.draughts.models.StateValue;
+import usantatecla.draughts.models.builders.game.GameBuilder;
+
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;

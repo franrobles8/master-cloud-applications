@@ -8,54 +8,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang3.tuple.Pair;
+import org.junit.Before;
 import org.junit.Test;
 
+import usantatecla.draughts.models.builders.game.GameMother;
+
 public class CorrectDraughtTest extends DraughtTest {
+
 
     private void assertMove(Coordinate... coordinates){
         assertNull(this.game.move(coordinates));
         assertEquals(this.game, this.expectedGame);
     }
 
+    @Before
+    public void setUp(){
+        gameMother = new GameMother();
+    }
+
     @Test
     public void moveWithBlackMovement() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(5, "     N  ");
-        Entry<Integer,String> rowGameExpected = new AbstractMap.SimpleEntry<>(4, "      N ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame))
-            )
-        );
-        this.setExpectedGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGameExpected)) 
-            )
-        );
+        
+        this.game = this.gameMother.blackRowWithTurn(4, "      N ");
+        this.expectedGame = this.gameMother.blackRowWithChangeTurn(5, "     N  ");
         this.assertMove(
             new Coordinate(5, 5),
-            new Coordinate(4, 6) 
-            
+            new Coordinate(4, 6)     
         );
     }
 
     @Test
     public void moveWithWhiteMovement() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(4, "     B  ");
-        Entry<Integer,String> rowGameExpected = new AbstractMap.SimpleEntry<>(5, "      B ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame))
-            )
-        );
-        this.setExpectedGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGameExpected)) 
-            )
-        );
+        
+        this.game = this.gameMother.blackRowWithTurn(4, "     B  ");
+        this.expectedGame = this.gameMother.blackRowWithChangeTurn(5, "      B ");
         this.assertMove(
             new Coordinate(4, 5),
             new Coordinate(5, 6) 
@@ -65,21 +52,12 @@ public class CorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithWhiteEating() {
-        Entry<Integer,String> blackRow = new AbstractMap.SimpleEntry<>   (4, "       B");
-        Entry<Integer,String> whiteRow = new AbstractMap.SimpleEntry<>   (5, "      N ");
-        Entry<Integer,String> rowExpected = new AbstractMap.SimpleEntry<>(6, "     B  ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(blackRow,whiteRow))
-            )
-        );
-        this.setExpectedGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowExpected))
-            )
-        );
+
+        Pair<Integer,String> blackRow = Pair.of(4, "       B");
+        Pair<Integer,String> whiteRow = Pair.of(5, "      N ");
+        this.game = this.gameMother.whiteEating(whiteRow,blackRow);
+        this.expectedGame = this.gameMother.whiteRowWithChangeTurn(6, "     B  ");
+        
         this.assertMove(
             new Coordinate(4, 7), 
             new Coordinate(6, 5)
@@ -88,21 +66,10 @@ public class CorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithBlackEating() {
-        Entry<Integer,String> blackRow = new AbstractMap.SimpleEntry<>   (4, "     N  ");
-        Entry<Integer,String> whiteRow = new AbstractMap.SimpleEntry<>   (5, "      B ");
-        Entry<Integer,String> rowExpected = new AbstractMap.SimpleEntry<>(6, "       N");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(blackRow,whiteRow))
-            )
-        );
-        this.setExpectedGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowExpected))
-            )
-        );
+        Pair<Integer,String> blackRow = Pair.of(4, "     N  ");
+        Pair<Integer,String> whiteRow = Pair.of(5, "      B ");
+        this.game = this.gameMother.blackEating(whiteRow,blackRow);
+        this.expectedGame = this.gameMother.blackRowWithChangeTurn(6, "       N");
         this.assertMove(
             new Coordinate(4, 5), 
             new Coordinate(6, 7)
@@ -111,22 +78,13 @@ public class CorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithWhiteDoubleEating() {
-        Entry<Integer,String> whiteRow = new AbstractMap.SimpleEntry<>   (5, "       B");
-        Entry<Integer,String> blackRow = new AbstractMap.SimpleEntry<>   (4, "      N ");
-        Entry<Integer,String> blackRow2 = new AbstractMap.SimpleEntry<>  (2, "    N   ");
-        Entry<Integer,String> rowExpected = new AbstractMap.SimpleEntry<>(1, "   B    ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(blackRow,blackRow2,whiteRow))
-            )
-        );
-        this.setExpectedGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowExpected))
-            )
-        );
+        Pair<Integer,String> whiteRow = Pair.of(5, "       B");
+        Pair<Integer,String> blackRow = Pair.of(4, "      N ");
+        Pair<Integer,String> blackRow2 = Pair.of(2, "    N   ");
+
+        this.game = this.gameMother.whiteEating(whiteRow,blackRow, blackRow2);
+        this.expectedGame = this.expectedGame = this.gameMother.whiteRowWithChangeTurn(1, "   B    ");
+        
         this.assertMove(
             new Coordinate(5, 7),
             new Coordinate(3, 5),
@@ -136,22 +94,12 @@ public class CorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithBlackDoubleEating() {
-        Entry<Integer,String> whiteRow = new AbstractMap.SimpleEntry<>   (1, "       N");
-        Entry<Integer,String> blackRow = new AbstractMap.SimpleEntry<>   (2, "      B ");
-        Entry<Integer,String> blackRow2 = new AbstractMap.SimpleEntry<>  (4, "    B   ");
-        Entry<Integer,String> rowExpected = new AbstractMap.SimpleEntry<>(5, "   N    ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(blackRow, blackRow2, whiteRow))
-            )
-        );
-        this.setExpectedGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowExpected))
-            )
-        );
+        Pair<Integer,String> whiteRow = Pair.of(1, "       N");
+        Pair<Integer,String> blackRow = Pair.of(2, "      B ");
+        Pair<Integer,String> blackRow2 = Pair.of(4, "    B   ");
+        
+        this.game = this.gameMother.blackEating(whiteRow,blackRow, blackRow2);
+        this.expectedGame = this.gameMother.blackRowWithChangeTurn(5, "   N    ");
         this.assertMove(
             new Coordinate(1, 7), 
             new Coordinate(3, 5),
@@ -161,22 +109,12 @@ public class CorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithBlackQueenDoubleEating() {
-        Entry<Integer,String> blackRow = new AbstractMap.SimpleEntry<>   (5, "     N  ");
-        Entry<Integer,String> whiteRow = new AbstractMap.SimpleEntry<>   (4, "      B ");
-        Entry<Integer,String> whiteRow2 = new AbstractMap.SimpleEntry<>  (2, "      B ");
-        Entry<Integer,String> rowExpected = new AbstractMap.SimpleEntry<>(0, "    N   ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(blackRow, whiteRow2, whiteRow))
-            )
-        );
-        this.setExpectedGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowExpected))
-            )
-        );
+        Pair<Integer,String> blackRow = Pair.of(5, "     N  ");
+        Pair<Integer,String> whiteRow = Pair.of(4, "      B ");
+        Pair<Integer,String> whiteRow2 = Pair.of(2, "      B ");
+        
+        this.game = this.gameMother.blackEating(blackRow, whiteRow, whiteRow2);
+        this.expectedGame = this.gameMother.blackRowWithChangeTurn(0, "    N   ");
         this.assertMove(
             new Coordinate(5, 5), 
             new Coordinate(3, 7),
@@ -186,22 +124,12 @@ public class CorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithWhiteQueenDoubleEating() {
-        Entry<Integer,String> whiteRow = new AbstractMap.SimpleEntry<>   (0, "     B  ");
-        Entry<Integer,String> blackRow = new AbstractMap.SimpleEntry<>   (1, "      N ");
-        Entry<Integer,String> blackRow2 = new AbstractMap.SimpleEntry<>  (3, "      N ");
-        Entry<Integer,String> rowExpected = new AbstractMap.SimpleEntry<>(7, "  B     ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(blackRow, blackRow2, whiteRow))
-            )
-        );
-        this.setExpectedGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowExpected))
-            )
-        );
+        Pair<Integer,String> whiteRow = Pair.of(0, "     B  ");
+        Pair<Integer,String> blackRow = Pair.of(1, "      N ");
+        Pair<Integer,String> blackRow2 = Pair.of(3, "      N ");
+
+        this.game = this.gameMother.whiteEating(whiteRow,blackRow, blackRow2);
+        this.expectedGame = this.gameMother.whiteRowWithChangeTurn(7, "  B     ");
         this.assertMove(
             new Coordinate(0, 5), 
             new Coordinate(2, 7),

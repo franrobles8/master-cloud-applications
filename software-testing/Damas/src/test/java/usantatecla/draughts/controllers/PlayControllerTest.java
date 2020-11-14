@@ -9,8 +9,8 @@ import org.junit.Test;
 import usantatecla.draughts.models.Color;
 import usantatecla.draughts.models.Coordinate;
 import usantatecla.draughts.models.Game;
-import usantatecla.draughts.models.GameBuilder;
 import usantatecla.draughts.models.State;
+import usantatecla.draughts.models.builders.game.GameBuilder;
 
 public class PlayControllerTest {
     

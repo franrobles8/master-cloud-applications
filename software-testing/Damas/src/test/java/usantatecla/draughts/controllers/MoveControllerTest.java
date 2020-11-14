@@ -7,9 +7,10 @@ import org.junit.Test;
 
 import usantatecla.draughts.models.Coordinate;
 import usantatecla.draughts.models.Game;
-import usantatecla.draughts.models.GameBuilder;
 import usantatecla.draughts.models.State;
 import usantatecla.draughts.models.StateValue;
+import usantatecla.draughts.models.builders.game.GameBuilder;
+
 import static org.hamcrest.CoreMatchers.is;
 
 public class MoveControllerTest {

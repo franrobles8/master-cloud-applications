@@ -7,34 +7,45 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 import java.util.Map.Entry;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import usantatecla.draughts.models.builders.game.GameBuilder;
+import usantatecla.draughts.models.builders.game.GameMother;
+
 public class IncorrectDraughtTest extends DraughtTest {
-    
-    private Map<Integer,String> rows; 
+
+    private Map<Integer, String> rows;
     private Color color;
 
-    @Override
-    protected void setGame(Color color, Map<Integer,String> rows) {
-        this.color = color;
-        this.rows = rows;
-        super.setGame(color, rows);
+    // @Override
+    // protected void setGame(Color color, Map<Integer, String> rows) {
+    //     this.color = color;
+    //     this.rows = rows;
+    //     super.setGame(color, rows);
+    // }
+
+
+
+    @Before
+    public void setUp(){
+        this.gameMother = new GameMother();
     }
+
+
 
     private void assertErrorMove(Error error, Coordinate... coordinates) {
         assertEquals(error, this.game.move(coordinates));
-        assertEquals(new GameBuilder().rows(this.rows.entrySet()).color(this.color).build(), this.game);
+        assertEquals(this.expectedGame, this.game);
     }
 
     @Test
     public void moveWithBlackMovementThenOppositePieceError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(1, " N      ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame))
-            )
-        );
+        this.game = this.gameMother.blackRowWithWrongTurn(1, " N      ");
+        this.expectedGame = this.gameMother.blackRowWithChangeTurn(1, " N      ");
         this.assertErrorMove(Error.OPPOSITE_PIECE,
             new Coordinate(1, 1),
             new Coordinate(2, 0) 
@@ -42,15 +53,11 @@ public class IncorrectDraughtTest extends DraughtTest {
         );
     }
 
+
     @Test
     public void moveWithWhiteMovementThenOppositePieceError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(2, "B       ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame))
-            )
-        );
+        this.game = this.gameMother.whiteRowWithWrongTurn(2, "B       ");
+        this.expectedGame = this.gameMother.whiteRowWithChangeTurn(2, "B       ");
         this.assertErrorMove(Error.OPPOSITE_PIECE,
             new Coordinate(2, 0),
             new Coordinate(1, 1) 
@@ -60,13 +67,8 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithWhiteThenNotDiagonalError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(4, "     B  ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame))
-            )
-        );
+        this.game = this.gameMother.whiteRowWithTurn(4, "     B  ");
+        this.expectedGame = this.game;
 
         this.assertErrorMove( Error.NOT_DIAGONAL,
             new Coordinate(4, 5),
@@ -97,13 +99,8 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithBlackThenNotDiagonalError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(4, "     N  ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame))
-            )
-        );
+        this.game = this.gameMother.blackRowWithTurn(4, "     N  ");
+        this.expectedGame = this.game;
 
         this.assertErrorMove( Error.NOT_DIAGONAL,
             new Coordinate(4, 5),
@@ -128,20 +125,14 @@ public class IncorrectDraughtTest extends DraughtTest {
             new Coordinate(4, 4) 
             
         );
-
-
     }
 
     @Test
     public void moveWithBlackMovementThenNotEmptyTargetError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<> (1, " N      ");
-        Entry<Integer,String> rowGame2 = new AbstractMap.SimpleEntry<>(2, "  n     ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame,rowGame2))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of (1, " N      ");
+        Pair<Integer,String> rowGame2 = Pair.of(2, "  n     ");
+        this.game = this.gameMother.rowsWithBlackTurn(rowGame, rowGame2);
+        this.expectedGame = this.game;
         this.assertErrorMove(Error.NOT_EMPTY_TARGET,
             new Coordinate(1, 1),
             new Coordinate(2, 2) 
@@ -151,14 +142,10 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithWhiteMovementThenNotEmptyTargetError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<> (2, " B     ");
-        Entry<Integer,String> rowGame2 = new AbstractMap.SimpleEntry<>(1, "  b     ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame,rowGame2))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of (2, " B      ");
+        Pair<Integer,String> rowGame2 = Pair.of(1, "  b     ");
+        this.game = this.gameMother.rowsWithWhiteTurn(rowGame, rowGame2);
+        this.expectedGame = this.game;
         this.assertErrorMove(Error.NOT_EMPTY_TARGET,
             new Coordinate(2, 1),
             new Coordinate(1, 2) 
@@ -168,15 +155,11 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithBlackMovementWhenEatingThenNotEmptyTargetError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<> (1, " N      ");
-        Entry<Integer,String> rowGame2 = new AbstractMap.SimpleEntry<>(2, "  b     ");
-        Entry<Integer,String> rowGame3 = new AbstractMap.SimpleEntry<>(3, "   b    ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame,rowGame2,rowGame3))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of (1, " N      ");
+        Pair<Integer,String> rowGame2 = Pair.of(2, "  b     ");
+        Pair<Integer,String> rowGame3 = Pair.of(3, "   b    ");
+        this.game = this.gameMother.rowsWithBlackTurn(rowGame, rowGame2, rowGame3);
+        this.expectedGame = this.game;
         this.assertErrorMove(Error.NOT_EMPTY_TARGET,
             new Coordinate(1, 1),
             new Coordinate(3, 3) 
@@ -186,15 +169,11 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithWhiteMovementWhenEatingThenNotEmptyTargetError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<> (3, " B      ");
-        Entry<Integer,String> rowGame2 = new AbstractMap.SimpleEntry<>(2, "  N     ");
-        Entry<Integer,String> rowGame3 = new AbstractMap.SimpleEntry<>(1, "   n    ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame,rowGame2,rowGame3))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of(3, " B      ");
+        Pair<Integer,String> rowGame2 = Pair.of(2, "  N     ");
+        Pair<Integer,String> rowGame3 = Pair.of(1, "   n    ");
+        this.game = this.gameMother.rowsWithWhiteTurn(rowGame, rowGame2, rowGame3);
+        this.expectedGame = this.game;
         this.assertErrorMove(Error.NOT_EMPTY_TARGET,
             new Coordinate(3, 1),
             new Coordinate(1, 3) 
@@ -204,14 +183,11 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void secondMoveWithWhiteEatingThenNotDiagonalError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(5, "  B     ");
-        Entry<Integer,String> rowGame2= new AbstractMap.SimpleEntry<>(4, "   n    ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame,rowGame2))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of(5, "  B     ");
+        Pair<Integer,String> rowGame2= Pair.of(4, "   n    ");
+       
+        this.game = this.gameMother.rowsWithWhiteTurn(rowGame, rowGame2);
+        this.expectedGame = this.game;
 
         this.assertErrorMove( Error.NOT_DIAGONAL,
             new Coordinate(5, 2),
@@ -237,14 +213,10 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void secondMoveWithBlackEatingThenNotDiagonalError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(4, "  N     ");
-        Entry<Integer,String> rowGame2= new AbstractMap.SimpleEntry<>(5, "   b    ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame,rowGame2))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of(4, "  N     ");
+        Pair<Integer,String> rowGame2= Pair.of(5, "   b    ");
+        this.game = this.gameMother.rowsWithBlackTurn(rowGame, rowGame2);
+        this.expectedGame = this.game;    
 
         this.assertErrorMove( Error.NOT_DIAGONAL,
             new Coordinate(4, 2),
@@ -270,14 +242,10 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithWhiteEatingThenColleagueEatingError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(5, "  B     ");
-        Entry<Integer,String> rowGame2= new AbstractMap.SimpleEntry<>(4, "   b    ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame,rowGame2))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of(5, "  B     ");
+        Pair<Integer,String> rowGame2= Pair.of(4, "   b    ");
+        this.game = this.gameMother.rowsWithWhiteTurn(rowGame, rowGame2);
+        this.expectedGame = this.game;
 
         this.assertErrorMove( Error.COLLEAGUE_EATING,
             new Coordinate(5, 2),
@@ -287,14 +255,11 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithBlackEatingThenColleagueEatingError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(5, "  N     ");
-        Entry<Integer,String> rowGame2= new AbstractMap.SimpleEntry<>(4, "   n    ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame,rowGame2))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of(5, "  N     ");
+        Pair<Integer,String> rowGame2= Pair.of(4, "   n    ");
+        this.game = this.gameMother.rowsWithBlackTurn(rowGame, rowGame2);
+        this.expectedGame = this.game;
+        
 
         this.assertErrorMove( Error.COLLEAGUE_EATING,
             new Coordinate(5, 2),
@@ -304,15 +269,11 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithBlackEatingThenTooMuchEatingsError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(5, "  N     ");
-        Entry<Integer,String> rowGame2= new AbstractMap.SimpleEntry<>(4, "   b    ");
-        Entry<Integer,String> rowGame3= new AbstractMap.SimpleEntry<>(2, "     b  ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame,rowGame2,rowGame3))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of(5, "  N     ");
+        Pair<Integer,String> rowGame2= Pair.of(4, "   b    ");
+        Pair<Integer,String> rowGame3= Pair.of(2, "     b  ");
+        this.game = this.gameMother.rowsWithBlackTurn(rowGame, rowGame2, rowGame3);
+        this.expectedGame = this.game;
 
         this.assertErrorMove( Error.TOO_MUCH_EATINGS,
             new Coordinate(5, 2),
@@ -322,15 +283,11 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithWhiteEatingThenTooMuchEatingsError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(5, "  B     ");
-        Entry<Integer,String> rowGame2= new AbstractMap.SimpleEntry<>(4, "   n    ");
-        Entry<Integer,String> rowGame3= new AbstractMap.SimpleEntry<>(2, "     n  ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame,rowGame2,rowGame3))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of(5, "  B     ");
+        Pair<Integer,String> rowGame2= Pair.of(4, "   n    ");
+        Pair<Integer,String> rowGame3= Pair.of(2, "     n  ");
+        this.game = this.gameMother.rowsWithWhiteTurn(rowGame, rowGame2, rowGame3);
+        this.expectedGame = this.game;
 
         this.assertErrorMove( Error.TOO_MUCH_EATINGS,
             new Coordinate(5, 2),
@@ -340,13 +297,8 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithWhiteThenTooMuchJumpsError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(5, "  B     ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame))
-            )
-        );
+        this.game = this.gameMother.whiteRowWithTurn(5, "  B     ");
+        this.expectedGame = this.game;
 
         this.assertErrorMove( Error.TOO_MUCH_JUMPS,
             new Coordinate(5, 2),
@@ -357,13 +309,8 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithBlackThenTooMuchJumpsError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(5, "  N     ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame))
-            )
-        );
+        this.game = this.gameMother.blackRowWithTurn(5, "  N     ");
+        this.expectedGame = this.game;
 
         this.assertErrorMove( Error.TOO_MUCH_JUMPS,
             new Coordinate(5, 2),
@@ -374,14 +321,10 @@ public class IncorrectDraughtTest extends DraughtTest {
     
     @Test
     public void moveWithWhiteEatingThenTooMuchJumpsError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<> (5, "  B     ");
-        Entry<Integer,String> rowGame2 = new AbstractMap.SimpleEntry<>(4, "   n    ");
-        this.setGame(
-            Color.WHITE, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame, rowGame2))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of(5, "  B     ");
+        Pair<Integer,String> rowGame2 = Pair.of(4, "   n    ");
+        this.game = this.gameMother.rowsWithWhiteTurn(rowGame, rowGame2);
+        this.expectedGame = this.game;
 
         this.assertErrorMove( Error.TOO_MUCH_JUMPS,
             new Coordinate(5, 2),
@@ -392,14 +335,10 @@ public class IncorrectDraughtTest extends DraughtTest {
 
     @Test
     public void moveWithBlackEatingThenTooMuchJumpsError() {
-        Entry<Integer,String> rowGame = new AbstractMap.SimpleEntry<>(5, "  N     ");
-        Entry<Integer,String> rowGame2 = new AbstractMap.SimpleEntry<>(4, "   b    ");
-        this.setGame(
-            Color.BLACK, 
-            this.getDraughtGame(
-                new ArrayList<Entry<Integer,String>>(List.of(rowGame, rowGame2))
-            )
-        );
+        Pair<Integer,String> rowGame = Pair.of(5, "  N     ");
+        Pair<Integer,String> rowGame2 = Pair.of(4, "   b    ");
+        this.game = this.gameMother.rowsWithBlackTurn(rowGame, rowGame2);
+        this.expectedGame = this.game;
 
         this.assertErrorMove( Error.TOO_MUCH_JUMPS,
             new Coordinate(5, 2),

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import usantatecla.draughts.models.builders.game.GameBuilder;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 

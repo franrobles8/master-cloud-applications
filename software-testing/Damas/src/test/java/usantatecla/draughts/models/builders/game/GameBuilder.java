@@ -1,8 +1,16 @@
-package usantatecla.draughts.models;
+package usantatecla.draughts.models.builders.game;
 
 import java.util.Set;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
+
+import usantatecla.draughts.models.Board;
+import usantatecla.draughts.models.Color;
+import usantatecla.draughts.models.Coordinate;
+import usantatecla.draughts.models.Draught;
+import usantatecla.draughts.models.Game;
+import usantatecla.draughts.models.Pawn;
+import usantatecla.draughts.models.Piece;
 
 public class GameBuilder {
     
