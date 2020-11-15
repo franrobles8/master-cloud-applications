@@ -1,20 +1,18 @@
 package usantatecla.draughts.models;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
+import usantatecla.draughts.models.builders.game.GameBuilder;
 import usantatecla.draughts.models.builders.game.GameMother;
 
-public class CorrectDraughtTest extends DraughtTest {
+public class CorrectDraughtTest extends GameTest {
 
 
     private void assertMove(Coordinate... coordinates){
@@ -137,5 +135,15 @@ public class CorrectDraughtTest extends DraughtTest {
         );
     }
 
+    @Test
+    public void givenCoordinatesWhenOneIsNotBlockedThenReturnsFalse() {
+        assertFalse(new GameBuilder().build().isBlocked());
+    }
+
+    @Test
+    public void givenCoordinatesWhenAllAreBlockedThenReturnTrue() {
+        GameBuilder gameBuilder = new GameBuilder().row(0, " b      ");
+        assertTrue(gameBuilder.build().isBlocked());
+    }
 
 }

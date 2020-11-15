@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import usantatecla.draughts.models.builders.game.GameMother;
 
-public class InitialGameTest extends DraughtTest {
+public class InitialGameTest extends GameTest {
     
     @Before
     public void setUp(){

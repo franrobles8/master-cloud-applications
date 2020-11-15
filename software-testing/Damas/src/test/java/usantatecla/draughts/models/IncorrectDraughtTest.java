@@ -1,20 +1,28 @@
 package usantatecla.draughts.models;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Before;
 import org.junit.Test;
+
+import usantatecla.draughts.models.builders.game.GameBuilder;
 import usantatecla.draughts.models.builders.game.GameMother;
 
-public class IncorrectDraughtTest extends DraughtTest {
+public class IncorrectDraughtTest extends GameTest {
 
     @Before
     public void setUp(){
         this.gameMother = new GameMother();
     }
 
-
+    @Test
+    public void givenMovementWhenEmptyOriginThenReturnsEmptyOriginError() {
+        assertThat(new GameBuilder().build().move(new Coordinate[] { new Coordinate(0, 0), new Coordinate(0, 1) }),
+                is(Error.EMPTY_ORIGIN));
+    }
 
     private void assertErrorMove(Error error, Coordinate... coordinates) {
         assertEquals(error, this.game.move(coordinates));

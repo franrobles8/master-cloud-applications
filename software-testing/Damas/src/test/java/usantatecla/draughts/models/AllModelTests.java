@@ -9,7 +9,6 @@ import org.junit.runners.Suite;
     CoordinateTest.class,
     CorrectDraughtTest.class,
     DirectionTest.class,
-    DraughtTest.class,
     GameBuilderTest.class,
     GameTest.class,
     IncorrectDraughtTest.class,
