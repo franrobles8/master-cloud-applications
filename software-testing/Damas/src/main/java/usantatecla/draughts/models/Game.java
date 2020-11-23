@@ -34,7 +34,7 @@ public class Game {
 
 	public Error move(Coordinate... coordinates) {
 		Error error = null;
-		List<Coordinate> removedCoordinates = new ArrayList<Coordinate>();
+		List<Coordinate> removedCoordinates = new ArrayList<>();
 		int pair = 0;
 		do {
 			error = this.isCorrectPairMove(pair, coordinates);
@@ -42,13 +42,17 @@ public class Game {
 				this.pairMove(removedCoordinates, pair, coordinates);
 				pair++;
 			}
-		} while (pair < coordinates.length - 1 && error == null);
+		} while (this.isNextMovementAvailable(pair, error, coordinates));
 		error = this.isCorrectGlobalMove(error, removedCoordinates, coordinates);
 		if (error == null)
 			this.turn.change();
 		else
 			this.unMovesUntilPair(removedCoordinates, pair, coordinates);
 		return error;
+	}
+
+	private boolean isNextMovementAvailable(int pair, Error error, Coordinate... coordinates) {
+		return pair < coordinates.length - 1 && error == null;
 	}
 
 	private Error isCorrectPairMove(int pair, Coordinate... coordinates) {
