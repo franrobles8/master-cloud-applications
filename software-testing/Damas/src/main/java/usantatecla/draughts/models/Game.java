@@ -7,15 +7,22 @@ public class Game {
 
 	private Board board;
 	private Turn turn;
+	private ErrorMoveChecker errorMoveChecker;
 
 	public Game(Board board) {
 		this.turn = new Turn();
 		this.board = board;
+		this.configureErrorCheckersChain();
 	}
 
 	public Game() {
 		this(new Board());
 		this.reset();
+	}
+
+	private void configureErrorCheckersChain() {
+		this.errorMoveChecker = new BoardErrorMoveChecker(this.board)
+				.link(new TurnErrorMoveChecker(this.board, this.turn));
 	}
 
 	public void reset() {
@@ -58,14 +65,11 @@ public class Game {
 	private Error isCorrectPairMove(int pair, Coordinate... coordinates) {
 		assert coordinates[pair] != null;
 		assert coordinates[pair + 1] != null;
-		if (board.isEmpty(coordinates[pair]))
-			return Error.EMPTY_ORIGIN;
-		if (this.turn.getOppositeColor() == this.board.getColor(coordinates[pair]))
-			return Error.OPPOSITE_PIECE;
-		if (!this.board.isEmpty(coordinates[pair + 1]))
-			return Error.NOT_EMPTY_TARGET;
-		List<Piece> betweenDiagonalPieces = 
-			this.board.getBetweenDiagonalPieces(coordinates[pair], coordinates[pair + 1]);
+		Error error = this.errorMoveChecker.check(pair, coordinates);
+		if (error != null)
+			return error;
+		List<Piece> betweenDiagonalPieces = this.board.getBetweenDiagonalPieces(coordinates[pair],
+				coordinates[pair + 1]);
 		return this.board.getPiece(coordinates[pair]).isCorrectMovement(betweenDiagonalPieces, pair, coordinates);
 	}
 
@@ -95,7 +99,7 @@ public class Game {
 		return null;
 	}
 
-	private Error isCorrectGlobalMove(Error error, List<Coordinate> removedCoordinates, Coordinate... coordinates){
+	private Error isCorrectGlobalMove(Error error, List<Coordinate> removedCoordinates, Coordinate... coordinates) {
 		if (error != null)
 			return error;
 		if (coordinates.length > 2 && coordinates.length > removedCoordinates.size() + 1)
