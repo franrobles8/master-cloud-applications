@@ -27,8 +27,7 @@ public class Game {
 
 	public void reset() {
 		this.board.reset();
-		if (this.turn.getColor() != Color.WHITE)
-			this.turn.change();
+		this.turn.reset();
 	}
 
 	public Error move(Coordinate... coordinates) {

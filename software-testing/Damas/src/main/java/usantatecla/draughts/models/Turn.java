@@ -20,6 +20,11 @@ class Turn {
     return Color.values()[(this.color.ordinal() + 1) % 2];
   }
 
+  protected void reset() {
+    if (this.getColor() != Color.WHITE)
+      this.change();
+  }
+
   @Override
   public String toString() {
     return this.color.name();

@@ -98,7 +98,7 @@ public class Board {
         return string + row + "\n";
     }
 
-    public void reset() {
+    protected void reset() {
         for (int i = 0; i < Coordinate.getDimension(); i++)
             for (int j = 0; j < Coordinate.getDimension(); j++) {
                 Coordinate coordinate = new Coordinate(i, j);
