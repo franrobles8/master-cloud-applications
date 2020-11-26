@@ -26,15 +26,7 @@ public class Game {
 	}
 
 	public void reset() {
-		for (int i = 0; i < Coordinate.getDimension(); i++)
-			for (int j = 0; j < Coordinate.getDimension(); j++) {
-				Coordinate coordinate = new Coordinate(i, j);
-				Color color = Color.getInitialColor(coordinate);
-				Piece piece = null;
-				if (color != null)
-					piece = new Pawn(color);
-				this.board.put(coordinate, piece);
-			}
+		this.board.reset();
 		if (this.turn.getColor() != Color.WHITE)
 			this.turn.change();
 	}
