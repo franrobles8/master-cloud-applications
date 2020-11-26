@@ -13,8 +13,8 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 
 public class PawnTest {
-    private Pawn whitePawn = new Pawn(Color.WHITE);
-    private Pawn blackPawn = new Pawn(Color.BLACK);
+    private Pawn whitePawn;
+    private Pawn blackPawn;
 
     @Before
     public void before() {
