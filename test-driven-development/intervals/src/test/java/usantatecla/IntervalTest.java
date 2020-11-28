@@ -67,9 +67,9 @@ public class IntervalTest {
   }
 
   @Test
-  public void givenIntervalOpenOpenIntersectedWhenIsIntersectedThenTrue() {
-    Interval interval = this.intervalBuilder.closed(left.getEquals()).closed(right.getEquals()).build();
-    Interval anotherInterval = this.intervalBuilder.closed(new Point(1.0).getEquals()).closed(new Point(5.0).getEquals()).build();
+  public void givenIntervalClosedClosedIntersectedWhenIsIntersectedThenTrue() {
+    Interval interval = new IntervalBuilder().closed(left.getEquals()).closed(right.getEquals()).build();
+    Interval anotherInterval = new IntervalBuilder().closed(new Point(1.0).getEquals()).closed(new Point(5.0).getEquals()).build();
     assertTrue(interval.isIntersected(anotherInterval));
   }
 }
