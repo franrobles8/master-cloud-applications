@@ -1,5 +1,6 @@
 package usantatecla;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -95,5 +96,13 @@ public class IntervalTest {
     assertFalse(interval.isIntersected(anotherInterval));
     anotherInterval = new IntervalBuilder().open(new Point(4.41).getEquals()).open(new Point(4.42).getEquals()).build();
     assertFalse(interval.isIntersected(anotherInterval));
+  }
+
+  @Test
+  public void givenTwoIntersectedIntervalsWhenIntersectionThenReturnIntersectedInterval() {
+    Interval interval = new IntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
+    Interval anotherInterval = new IntervalBuilder().open(new Point(-2.3).getEquals()).open(new Point(4.5).getEquals()).build();
+    Interval intersectedInterval = interval.intersection(anotherInterval);
+    assertEquals(intersectedInterval, interval);
   }
 }

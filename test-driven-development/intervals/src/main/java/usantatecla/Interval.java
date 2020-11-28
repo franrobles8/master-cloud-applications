@@ -20,6 +20,10 @@ public class Interval {
 				|| interval.include(this.max.value);
 	}
 
+	public Interval intersection(Interval interval) {
+		return null;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
