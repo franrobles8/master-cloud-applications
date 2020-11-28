@@ -118,5 +118,8 @@ public class IntervalTest {
     Interval anotherInterval = new IntervalBuilder().open(new Point(-2.3).getEquals()).open(new Point(-2.21).getEquals()).build();
     Interval intersectedInterval = interval.intersection(anotherInterval);
     assertNull(intersectedInterval);
+    anotherInterval = new IntervalBuilder().open(new Point(4.41).getEquals()).open(new Point(4.42).getEquals()).build();
+    intersectedInterval = interval.intersection(anotherInterval);
+    assertNull(intersectedInterval);
   }
 }
