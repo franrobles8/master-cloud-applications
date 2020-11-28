@@ -34,7 +34,6 @@ public class IntervalTest {
     assertFalse(interval.include(left.getLess()));
     assertTrue(interval.include(left.getEquals()));
     assertTrue(interval.include(left.getGreater()));
-
     assertTrue(interval.include(right.getLess()));
     assertFalse(interval.include(right.getEquals()));
     assertFalse(interval.include(right.getGreater()));
@@ -46,7 +45,6 @@ public class IntervalTest {
     assertFalse(interval.include(left.getLess()));
     assertFalse(interval.include(left.getEquals()));
     assertTrue(interval.include(left.getGreater()));
-
     assertTrue(interval.include(right.getLess()));
     assertTrue(interval.include(right.getEquals()));
     assertFalse(interval.include(right.getGreater()));
@@ -58,7 +56,6 @@ public class IntervalTest {
     assertFalse(interval.include(left.getLess()));
     assertTrue(interval.include(left.getEquals()));
     assertTrue(interval.include(left.getGreater()));
-
     assertTrue(interval.include(right.getLess()));
     assertTrue(interval.include(right.getEquals()));
     assertFalse(interval.include(right.getGreater()));
@@ -69,6 +66,8 @@ public class IntervalTest {
     Interval interval = new IntervalBuilder().closed(left.getEquals()).closed(right.getEquals()).build();
     Interval anotherInterval = new IntervalBuilder().closed(new Point(-2.2).getEquals()).closed(new Point(5.0).getEquals()).build();
     assertTrue(interval.isIntersected(anotherInterval));
+    anotherInterval = new IntervalBuilder().closed(new Point(-2.3).getEquals()).closed(new Point(4.3).getEquals()).build();
+    assertTrue(interval.isIntersected(anotherInterval));
   }
 
   @Test
@@ -76,12 +75,16 @@ public class IntervalTest {
     Interval interval = new IntervalBuilder().closed(left.getEquals()).closed(right.getEquals()).build();
     Interval anotherInterval = new IntervalBuilder().closed(new Point(-2.4).getEquals()).closed(new Point(-2.3).getEquals()).build();
     assertFalse(interval.isIntersected(anotherInterval));
+    anotherInterval = new IntervalBuilder().closed(new Point(4.41).getEquals()).closed(new Point(4.41).getEquals()).build();
+    assertFalse(interval.isIntersected(anotherInterval));
   }
 
   @Test
   public void givenIntervalOpenOpenIntersectedWhenIsIntersectedThenTrue() {
     Interval interval = new IntervalBuilder().closed(left.getEquals()).closed(right.getEquals()).build();
     Interval anotherInterval = new IntervalBuilder().open(new Point(-2.3).getEquals()).open(new Point(4.5).getEquals()).build();
+    assertTrue(interval.isIntersected(anotherInterval));
+    anotherInterval = new IntervalBuilder().open(new Point(-2.19).getEquals()).open(new Point(4.5).getEquals()).build();
     assertTrue(interval.isIntersected(anotherInterval));
   }
 
