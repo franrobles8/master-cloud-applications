@@ -2,6 +2,7 @@ package usantatecla;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -109,5 +110,13 @@ public class IntervalTest {
     intersectedInterval = interval.intersection(anotherInterval);
     expectedInterval = new IntervalBuilder().open(new Point(-2.1).getEquals()).open(new Point(4.4).getEquals()).build();
     assertEquals(intersectedInterval, expectedInterval);
+  }
+
+  @Test
+  public void givenTwoNotIntersectedIntervalsWhenIntersectionThenReturnNull() {
+    Interval interval = new IntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
+    Interval anotherInterval = new IntervalBuilder().open(new Point(-2.3).getEquals()).open(new Point(-2.21).getEquals()).build();
+    Interval intersectedInterval = interval.intersection(anotherInterval);
+    assertNull(intersectedInterval);
   }
 }
