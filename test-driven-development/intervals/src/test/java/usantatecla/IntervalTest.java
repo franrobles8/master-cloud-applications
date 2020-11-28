@@ -103,6 +103,11 @@ public class IntervalTest {
     Interval interval = new IntervalBuilder().open(left.getEquals()).open(right.getEquals()).build();
     Interval anotherInterval = new IntervalBuilder().open(new Point(-2.3).getEquals()).open(new Point(4.5).getEquals()).build();
     Interval intersectedInterval = interval.intersection(anotherInterval);
-    assertEquals(intersectedInterval, interval);
+    Interval expectedInterval = interval;
+    assertEquals(intersectedInterval, expectedInterval);
+    anotherInterval = new IntervalBuilder().open(new Point(-2.1).getEquals()).open(new Point(4.5).getEquals()).build();
+    intersectedInterval = interval.intersection(anotherInterval);
+    expectedInterval = new IntervalBuilder().open(new Point(-2.1).getEquals()).open(new Point(4.4).getEquals()).build();
+    assertEquals(intersectedInterval, expectedInterval);
   }
 }

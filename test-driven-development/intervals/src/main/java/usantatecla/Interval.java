@@ -21,7 +21,10 @@ public class Interval {
 	}
 
 	public Interval intersection(Interval interval) {
-		return null;
+		return new Interval(
+				new Min(Math.max(this.min.value, interval.min.value)),
+				new Max(Math.min(this.max.value, interval.max.value))
+				);
 	}
 
 	@Override
