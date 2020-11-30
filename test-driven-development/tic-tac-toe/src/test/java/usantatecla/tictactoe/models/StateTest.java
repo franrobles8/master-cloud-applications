@@ -18,4 +18,11 @@ public class StateTest {
         StateValue stateValue = this.state.getValueState();
         assertThat(stateValue, is(StateValue.INITIAL));
     }
+
+    @Test
+    public void givenStateWhenNextThenChangeToNextStateValue() {
+        this.state.next();
+        StateValue stateValue = this.state.getValueState();
+        assertThat(stateValue, is(StateValue.IN_GAME));
+    }
 }
