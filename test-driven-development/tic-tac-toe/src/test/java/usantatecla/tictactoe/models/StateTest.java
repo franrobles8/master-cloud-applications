@@ -15,8 +15,7 @@ public class StateTest {
 
     @Test
     public void givenStateWhenGetValueStateThenReturnStateValue() {
-        StateValue stateValue = this.state.getValueState();
-        assertThat(stateValue, is(StateValue.INITIAL));
+        assertThat(this.state.getValueState(), is(StateValue.INITIAL));
     }
 
     @Test
