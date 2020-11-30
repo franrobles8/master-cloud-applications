@@ -43,4 +43,10 @@ public class LogicTest {
         verify(this.startController, times(1)).getMaxPlayers();
         assertThat(maxPlayers, is(2));
     }
+
+    @Test
+    public void givenLogicWhenIsBoardCompleteThenCallsToPlayControllerIsBoardComplete() {
+        this.logic.isBoardComplete();
+        verify(this.playController, times(1)).isBoardComplete();
+    }
 }
