@@ -13,6 +13,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class LogicTest {
     @Mock
@@ -72,5 +73,11 @@ public class LogicTest {
         when(this.playController.isUser()).thenReturn(true);
         assertThat(this.logic.isUser(), is(true));
         verify(this.playController, times(1)).isUser();
+    }
+
+    @Test
+    public void givenLogicWhenPutThenCallsToPlayControllerPut() {
+        assertNull(this.logic.put());
+        verify(this.playController, times(1)).put(null);
     }
 }
