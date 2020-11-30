@@ -92,4 +92,9 @@ public class LogicTest {
         assertNull(this.logic.move(origin, target));
         verify(this.playController, times(1)).move(origin, target);
     }
+
+    @Test
+    public void givenLogicWhenResumeThenCallsToResumeControllerResume() {
+        verify(this.resumeController, times(1)).resume();
+    }
 }
