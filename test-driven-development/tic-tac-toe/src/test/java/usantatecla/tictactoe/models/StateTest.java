@@ -27,4 +27,11 @@ public class StateTest {
         this.state.next();
         assertThat(this.state.getValueState(), is(StateValue.EXIT));
     }
+
+    @Test
+    public void givenStateWhenResetThenChangeToInitialState() {
+        this.state.next();
+        this.state.reset();
+        assertThat(this.state.getValueState(), is(StateValue.INITIAL));
+    }
 }
