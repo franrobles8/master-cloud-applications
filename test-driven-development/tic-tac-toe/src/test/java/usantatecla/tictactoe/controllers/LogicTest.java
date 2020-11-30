@@ -95,6 +95,7 @@ public class LogicTest {
 
     @Test
     public void givenLogicWhenResumeThenCallsToResumeControllerResume() {
+        this.logic.resume();
         verify(this.resumeController, times(1)).resume();
     }
 }
