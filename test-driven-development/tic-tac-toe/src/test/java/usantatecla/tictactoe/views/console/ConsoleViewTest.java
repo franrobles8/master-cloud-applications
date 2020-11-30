@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import usantatecla.tictactoe.controllers.Logic;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -14,7 +15,7 @@ public class ConsoleViewTest {
     private StartView startView;
 
     @InjectMocks
-    private ConsoleView consoleView;
+    private ConsoleView consoleView = new ConsoleView(new Logic());
 
     @BeforeEach
     void before() {

@@ -1,9 +1,17 @@
 package usantatecla.tictactoe.views.console;
 
+import usantatecla.tictactoe.controllers.Logic;
+
 public class ConsoleView extends usantatecla.tictactoe.views.View {
+    private StartView startView;
+
+    public ConsoleView(Logic logic) {
+        this.startView = new StartView(logic);
+    }
+
     @Override
     protected void start() {
-        // To do
+       this.startView.interact();
     }
 
     @Override

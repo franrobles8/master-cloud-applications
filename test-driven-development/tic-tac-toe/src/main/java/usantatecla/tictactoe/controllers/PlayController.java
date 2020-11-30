@@ -22,6 +22,11 @@ public class PlayController extends Controller {
 	public Token getToken() {
 		return this.game.getToken();
 	}
+	
+	@Override
+	public Token getToken(Coordinate coordinate) {
+		return this.game.getToken(coordinate);
+	}
 
 	public boolean isUser() {
 		return this.game.isUser();
