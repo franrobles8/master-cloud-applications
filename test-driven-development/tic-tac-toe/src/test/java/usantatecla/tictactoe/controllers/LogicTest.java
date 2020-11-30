@@ -29,7 +29,8 @@ public class LogicTest {
 
     @Test
     public void givenLogicWhenSetUsersThenCallsToStartControllerSetUsers() {
-        this.logic.setUsers();
-        verify(this.startController, times(1)).setUsers(anyInt());
+        int users = 2;
+        this.logic.setUsers(users);
+        verify(this.startController, times(1)).setUsers(users);
     }
 }

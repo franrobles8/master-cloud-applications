@@ -1,11 +1,19 @@
 package usantatecla.tictactoe.controllers;
 
+import usantatecla.tictactoe.models.Game;
 import usantatecla.tictactoe.models.Token;
 
 public class Logic {
+    private Game game;
+    private StartController startController;
 
-    public void setUsers() {
-        System.out.println("setUsers()");
+    public Logic() {
+        this.game = new Game();
+        this.startController = new StartController(this.game);
+    }
+
+    public void setUsers(int users) {
+        this.startController.setUsers(users);
     }
 
     public int getMaxPlayers() {
