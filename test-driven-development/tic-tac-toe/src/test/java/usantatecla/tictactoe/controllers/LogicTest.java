@@ -39,9 +39,8 @@ public class LogicTest {
     @Test
     public void givenLogicWhenGetMaxPlayersThenCallsToStartControllerGetMaxPlayers() {
         when(this.startController.getMaxPlayers()).thenReturn(2);
-        int maxPlayers = this.logic.getMaxPlayers();
+        assertThat(this.logic.getMaxPlayers(), is(2));
         verify(this.startController, times(1)).getMaxPlayers();
-        assertThat(maxPlayers, is(2));
     }
 
     @Test
