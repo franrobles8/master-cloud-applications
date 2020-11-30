@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class LogicTest {
     @Mock
@@ -32,5 +34,13 @@ public class LogicTest {
         int users = 2;
         this.logic.setUsers(users);
         verify(this.startController, times(1)).setUsers(users);
+    }
+
+    @Test
+    public void givenLogicWhenGetMaxPlayersThenCallsToStartControllerGetMaxPlayers() {
+        when(this.startController.getMaxPlayers()).thenReturn(2);
+        int maxPlayers = this.logic.getMaxPlayers();
+        verify(this.startController, times(1)).getMaxPlayers();
+        assertThat(maxPlayers, is(2));
     }
 }
