@@ -13,7 +13,6 @@ public class StartController extends Controller {
   }
 
   public int getMaxPlayers() {
-	return this.game.getMaxPlayers();
-}
-
+    return this.game.getMaxPlayers();
+  }
 }
