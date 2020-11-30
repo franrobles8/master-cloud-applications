@@ -49,4 +49,10 @@ public class LogicTest {
         assertThat(this.logic.isBoardComplete(), is(true));
         verify(this.playController, times(1)).isBoardComplete();
     }
+
+    @Test
+    public void givenLogicWhenIsTicTacToeThenCallsToPlayControllerIsTicTacToe() {
+        assertThat(this.logic.isTicTacToe(), is(true));
+        verify(this.playController, times(1)).isTicTacToe();
+    }
 }
