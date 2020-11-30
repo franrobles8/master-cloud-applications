@@ -70,6 +70,14 @@ public class LogicTest {
     }
 
     @Test
+    public void givenLogicWhenGetTokenWithCoordinateThenCallsToPlayControllerGetTokenWithCoordinate() {
+        Coordinate coordinate = new Coordinate(0, 0);
+        when(this.playController.getToken(coordinate)).thenReturn(Token.O);
+        assertThat(this.logic.getToken(coordinate), is(Token.O));
+        verify(this.playController, times(1)).getToken(coordinate);
+    }
+
+    @Test
     public void givenLogicWhenIsUserThenCallsToPlayControllerIsUser() {
         when(this.playController.isUser()).thenReturn(true);
         assertThat(this.logic.isUser(), is(true));
