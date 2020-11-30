@@ -9,7 +9,8 @@ public class State {
         // To do
     }
 
-    public void getValueState() {
+    public StateValue getValueState() {
         // To do
+        return null;
     }
 }
