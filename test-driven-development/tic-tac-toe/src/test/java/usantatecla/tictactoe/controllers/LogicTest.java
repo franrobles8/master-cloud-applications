@@ -69,6 +69,7 @@ public class LogicTest {
 
     @Test
     public void givenLogicWhenIsUserThenCallsToPlayControllerIsUser() {
+        when(this.playController.isUser()).thenReturn(true);
         assertThat(this.logic.isUser(), is(true));
         verify(this.playController, times(1)).isUser();
     }

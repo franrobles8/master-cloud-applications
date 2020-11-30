@@ -35,7 +35,7 @@ public class Logic {
     }
 
     public boolean isUser() {
-        return false;
+        return this.playController.isUser();
     }
 
     public Error put() {
