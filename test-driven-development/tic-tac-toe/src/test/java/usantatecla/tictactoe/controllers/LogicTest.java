@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import usantatecla.tictactoe.models.Token;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -55,5 +58,11 @@ public class LogicTest {
         when(this.playController.isTicTacToe()).thenReturn(true);
         assertThat(this.logic.isTicTacToe(), is(true));
         verify(this.playController, times(1)).isTicTacToe();
+    }
+
+    @Test
+    public void givenLogicWhenGetTokenThenCallsToPlayControllerGetToken() {
+        assertThat(this.logic.getToken(), is(Token.O));
+        verify(this.playController, times(1)).getToken();
     }
 }
