@@ -8,7 +8,7 @@ public class State {
     }
 
     public void reset() {
-        // To do
+        this.stateValue = StateValue.INITIAL;
     }
 
     public void next() {
