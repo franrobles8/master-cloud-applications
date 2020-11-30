@@ -46,7 +46,9 @@ public class LogicTest {
 
     @Test
     public void givenLogicWhenIsBoardCompleteThenCallsToPlayControllerIsBoardComplete() {
-        this.logic.isBoardComplete();
+        when(this.playController.isBoardComplete()).thenReturn(true);
+        boolean isBoardComplete = this.logic.isBoardComplete();
         verify(this.playController, times(1)).isBoardComplete();
+        assertThat(isBoardComplete, is(true));
     }
 }

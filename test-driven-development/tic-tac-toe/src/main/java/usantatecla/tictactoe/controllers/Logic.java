@@ -6,10 +6,12 @@ import usantatecla.tictactoe.models.Token;
 public class Logic {
     private Game game;
     private StartController startController;
+    private PlayController playController;
 
     public Logic() {
         this.game = new Game();
         this.startController = new StartController(this.game);
+        this.playController = new PlayController(this.game);
     }
 
     public void setUsers(int users) {
@@ -21,7 +23,7 @@ public class Logic {
     }
 
     public boolean isBoardComplete() {
-        return false;
+        return this.playController.isBoardComplete();
     }
 
     public boolean isTicTacToe() {
