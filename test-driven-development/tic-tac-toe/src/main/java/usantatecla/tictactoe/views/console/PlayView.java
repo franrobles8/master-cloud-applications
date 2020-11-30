@@ -1,34 +1,31 @@
 package usantatecla.tictactoe.views.console;
 
-import usantatecla.tictactoe.controllers.PlayController;
+import usantatecla.tictactoe.controllers.Logic;
 import usantatecla.tictactoe.models.Coordinate;
 import usantatecla.tictactoe.views.Message;
 import usantatecla.tictactoe.types.Error;
 
-class PlayView {
+class PlayView extends SubView {
 
-    private PlayController playController;
-
-    PlayView(PlayController playController) {
-        this.playController = playController;
+    PlayView(Logic logic) {
+        super(logic);
     }
 
     void interact() {
         do {
-            //this.playController.next();
-            if (!this.playController.isBoardComplete()) {
+            if (!this.logic.isBoardComplete()) {
                 this.put();
             } else {
                 this.move();
             }
-            new GameView(this.playController).write();
-        } while (!this.playController.isTicTacToe());
-        new TokenView(this.playController.getToken()).write();
+            new GameView(this.logic).write();
+        } while (!this.logic.isTicTacToe());
+        new TokenView(this.logic.getToken()).write();
         Message.PLAYER_WIN.writeln();
     }
 
     private void put() {
-        boolean isUser = this.playController.isUser();
+        boolean isUser = this.logic.isUser();
         Coordinate coordinate;
         Error error;
         do {
@@ -37,7 +34,7 @@ class PlayView {
             } else {
                 coordinate = createRandomCoordinate();
             }
-            error = this.playController.put(coordinate);
+            error = this.logic.put(coordinate);
             if (isUser) {
                 new ErrorView(error).writeln();
             }
@@ -45,7 +42,7 @@ class PlayView {
     }
 
     private void move() {
-        boolean isUser = this.playController.isUser();
+        boolean isUser = this.logic.isUser();
         Coordinate origin;
         Coordinate target;
         Error error;
@@ -57,7 +54,7 @@ class PlayView {
                 origin = createRandomCoordinate();
                 target = createRandomCoordinate();
             }
-            error = this.playController.move(origin, target);
+            error = this.logic.move(origin, target);
             if (isUser) {
                 new ErrorView(error).writeln();
             }

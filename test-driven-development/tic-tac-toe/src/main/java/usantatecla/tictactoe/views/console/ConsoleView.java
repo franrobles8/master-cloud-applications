@@ -4,9 +4,11 @@ import usantatecla.tictactoe.controllers.Logic;
 
 public class ConsoleView extends usantatecla.tictactoe.views.View {
     private StartView startView;
+    private PlayView playView;
 
     public ConsoleView(Logic logic) {
         this.startView = new StartView(logic);
+        this.playView = new PlayView(logic);
     }
 
     @Override
@@ -16,7 +18,7 @@ public class ConsoleView extends usantatecla.tictactoe.views.View {
 
     @Override
     protected void play() {
-        // To do
+        this.playView.interact();
     }
 
     @Override
