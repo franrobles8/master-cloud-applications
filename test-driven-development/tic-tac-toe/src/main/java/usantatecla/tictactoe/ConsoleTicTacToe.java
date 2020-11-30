@@ -1,9 +1,7 @@
 package usantatecla.tictactoe;
 
-import usantatecla.tictactoe.controllers.PlayController;
-import usantatecla.tictactoe.controllers.ResumeController;
-import usantatecla.tictactoe.controllers.StartController;
-import usantatecla.tictactoe.views.console.View;
+import usantatecla.tictactoe.controllers.Logic;
+import usantatecla.tictactoe.views.console.ConsoleView;
 
 class ConsoleTicTacToe extends TicTacToe {
 
@@ -12,7 +10,7 @@ class ConsoleTicTacToe extends TicTacToe {
 	}
 
 	@Override
-	protected View createView(StartController startController, PlayController playController, ResumeController resumeController){
-		return new View(startController, playController, resumeController);
+	protected ConsoleView createView(Logic logic){
+		return new ConsoleView(logic);
 	}
 }

@@ -5,10 +5,12 @@ import usantatecla.tictactoe.controllers.Logic;
 public class ConsoleView extends usantatecla.tictactoe.views.View {
     private StartView startView;
     private PlayView playView;
+    private ResumeView resumeView;
 
     public ConsoleView(Logic logic) {
         this.startView = new StartView(logic);
         this.playView = new PlayView(logic);
+        this.resumeView = new ResumeView(logic);
     }
 
     @Override
@@ -23,7 +25,6 @@ public class ConsoleView extends usantatecla.tictactoe.views.View {
 
     @Override
     protected boolean isResumed() {
-        // To do
-        return false;
+        return this.resumeView.interact();
     }
 }
