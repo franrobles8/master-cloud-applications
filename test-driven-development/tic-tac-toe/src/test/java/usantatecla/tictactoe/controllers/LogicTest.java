@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import usantatecla.tictactoe.models.Coordinate;
 import usantatecla.tictactoe.models.Token;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -77,7 +78,9 @@ public class LogicTest {
 
     @Test
     public void givenLogicWhenPutThenCallsToPlayControllerPut() {
-        assertNull(this.logic.put());
-        verify(this.playController, times(1)).put(null);
+        Coordinate coordinate = new Coordinate(0, 0);
+        when(this.playController.put(coordinate)).thenReturn(null);
+        assertNull(this.logic.put(coordinate));
+        verify(this.playController, times(1)).put(coordinate);
     }
 }

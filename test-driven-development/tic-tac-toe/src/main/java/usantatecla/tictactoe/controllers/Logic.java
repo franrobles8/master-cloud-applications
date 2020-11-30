@@ -1,7 +1,9 @@
 package usantatecla.tictactoe.controllers;
 
+import usantatecla.tictactoe.models.Coordinate;
 import usantatecla.tictactoe.models.Game;
 import usantatecla.tictactoe.models.Token;
+import usantatecla.tictactoe.types.Error;
 
 public class Logic {
     private Game game;
@@ -38,8 +40,8 @@ public class Logic {
         return this.playController.isUser();
     }
 
-    public Error put() {
-        return null;
+    public Error put(Coordinate coordinate) {
+        return this.playController.put(coordinate);
     }
 
     public Error move() {
