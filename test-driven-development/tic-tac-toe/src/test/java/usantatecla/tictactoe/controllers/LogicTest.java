@@ -52,6 +52,7 @@ public class LogicTest {
 
     @Test
     public void givenLogicWhenIsTicTacToeThenCallsToPlayControllerIsTicTacToe() {
+        when(this.playController.isTicTacToe()).thenReturn(true);
         assertThat(this.logic.isTicTacToe(), is(true));
         verify(this.playController, times(1)).isTicTacToe();
     }

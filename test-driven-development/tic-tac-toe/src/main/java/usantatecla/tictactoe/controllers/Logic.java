@@ -27,7 +27,7 @@ public class Logic {
     }
 
     public boolean isTicTacToe() {
-        return false;
+        return this.playController.isTicTacToe();
     }
 
     public Token getToken() {
