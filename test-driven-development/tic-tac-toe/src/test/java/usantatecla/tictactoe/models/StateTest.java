@@ -22,7 +22,10 @@ public class StateTest {
     @Test
     public void givenStateWhenNextThenChangeToNextStateValue() {
         this.state.next();
-        StateValue stateValue = this.state.getValueState();
-        assertThat(stateValue, is(StateValue.IN_GAME));
+        assertThat(this.state.getValueState(), is(StateValue.IN_GAME));
+        this.state.next();
+        assertThat(this.state.getValueState(), is(StateValue.RESUME));
+        this.state.next();
+        assertThat(this.state.getValueState(), is(StateValue.EXIT));
     }
 }

@@ -12,7 +12,7 @@ public class State {
     }
 
     public void next() {
-        // To do
+        this.stateValue = StateValue.values()[this.stateValue.ordinal() + 1];
     }
 
     public StateValue getValueState() {
