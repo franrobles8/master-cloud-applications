@@ -62,6 +62,7 @@ public class LogicTest {
 
     @Test
     public void givenLogicWhenGetTokenThenCallsToPlayControllerGetToken() {
+        when(this.playController.getToken()).thenReturn(Token.O);
         assertThat(this.logic.getToken(), is(Token.O));
         verify(this.playController, times(1)).getToken();
     }

@@ -31,7 +31,7 @@ public class Logic {
     }
 
     public Token getToken() {
-        return null;
+        return this.playController.getToken();
     }
 
     public boolean isUser() {
