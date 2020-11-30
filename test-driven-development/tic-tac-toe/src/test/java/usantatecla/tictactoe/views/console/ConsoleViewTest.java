@@ -17,6 +17,9 @@ public class ConsoleViewTest {
     @Mock
     private PlayView playView;
 
+    @Mock
+    private ResumeView resumeView;
+
     @InjectMocks
     private ConsoleView consoleView = new ConsoleView(new Logic());
 
@@ -27,13 +30,19 @@ public class ConsoleViewTest {
 
     @Test
     public void givenConsoleViewTestWhenStartThenInteractsWithStartView() {
-        consoleView.start();
+        this.consoleView.start();
         verify(startView, times(1)).interact();
     }
 
     @Test
     public void givenConsoleViewTestWhenPlayThenInteractsWithPlayView() {
-        consoleView.play();
+        this.consoleView.play();
         verify(playView, times(1)).interact();
+    }
+
+    @Test
+    public void givenConsoleViewTestWhenIsResumedThenInteractsWithResumeView() {
+        this.consoleView.isResumed();
+        verify(resumeView, times(1)).interact();
     }
 }
