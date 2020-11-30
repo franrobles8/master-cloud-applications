@@ -17,7 +17,7 @@ public class Logic {
     }
 
     public int getMaxPlayers() {
-        return -1;
+        return this.startController.getMaxPlayers();
     }
 
     public boolean isBoardComplete() {
