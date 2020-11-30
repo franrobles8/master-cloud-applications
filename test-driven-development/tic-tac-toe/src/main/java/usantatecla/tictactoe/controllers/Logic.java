@@ -44,8 +44,8 @@ public class Logic {
         return this.playController.put(coordinate);
     }
 
-    public Error move() {
-        return null;
+    public Error move(Coordinate origin, Coordinate target) {
+        return this.playController.move(origin, target);
     }
 
     public void resume() {

@@ -86,7 +86,10 @@ public class LogicTest {
 
     @Test
     public void givenLogicWhenMoveThenCallsToPlayControllerMove() {
-        assertNull(this.logic.move());
-        verify(this.playController, times(1)).move(null, null);
+        Coordinate origin = new Coordinate(0, 1);
+        Coordinate target = new Coordinate(1, 2);
+        when(this.playController.move(origin, target)).thenReturn(null);
+        assertNull(this.logic.move(origin, target));
+        verify(this.playController, times(1)).move(origin, target);
     }
 }
