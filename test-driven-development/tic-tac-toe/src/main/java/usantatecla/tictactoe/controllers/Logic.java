@@ -38,6 +38,10 @@ public class Logic {
         return this.playController.getToken();
     }
 
+    public Token getToken(Coordinate coordinate) {
+        return this.playController.getToken(coordinate);
+    }
+
     public boolean isUser() {
         return this.playController.isUser();
     }
