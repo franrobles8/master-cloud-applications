@@ -66,4 +66,10 @@ public class LogicTest {
         assertThat(this.logic.getToken(), is(Token.O));
         verify(this.playController, times(1)).getToken();
     }
+
+    @Test
+    public void givenLogicWhenIsUserThenCallsToPlayControllerIsUser() {
+        assertThat(this.logic.isUser(), is(true));
+        verify(this.playController, times(1)).isUser();
+    }
 }
