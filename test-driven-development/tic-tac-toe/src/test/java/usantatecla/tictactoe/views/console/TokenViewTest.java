@@ -36,12 +36,9 @@ public class TokenViewTest {
     @Test
     void testGivenNewTokenViewWhenWriteThenPrintXToken() {
         when(this.token.toString()).thenReturn("X");
-        try (MockedStatic console = mockStatic(Console.class)) {
-            console.when(Console::getInstance).thenReturn(this.console);
-            tokenView.write();
-            verify(this.console).write(captor.capture());
-            assertThat(captor.getValue(), is(Token.X.toString()));
-        }
+        tokenView.write();
+        verify(this.console).write(captor.capture());
+        assertThat(captor.getValue(), is(Token.X.toString()));
     }
 
 }

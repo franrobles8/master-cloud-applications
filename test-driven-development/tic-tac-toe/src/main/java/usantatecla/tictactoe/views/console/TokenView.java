@@ -6,13 +6,15 @@ import usantatecla.utils.Console;
 public class TokenView {
 
 	private Token token;
+	private Console console;
 
 	TokenView(Token token){
 		this.token = token;
+		this.console = Console.getInstance();
 	}
 
 	void write() {
-		Console.getInstance().write(token.toString());
+		this.console.write(token.toString());
 	}
 
 }
