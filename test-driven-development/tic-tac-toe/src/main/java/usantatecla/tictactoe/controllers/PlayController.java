@@ -40,4 +40,9 @@ public class PlayController extends Controller {
 		return this.game.move(origin, target);
 	}
 
+	@Override
+	public void accept(ControllersVisitor controllersVisitor) {
+		
+	}
+
 }

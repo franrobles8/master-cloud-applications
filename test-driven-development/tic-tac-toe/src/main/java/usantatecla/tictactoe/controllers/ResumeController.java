@@ -12,4 +12,10 @@ public class ResumeController extends Controller {
     this.game.reset();
   }
 
+  @Override
+  public void accept(ControllersVisitor controllersVisitor) {
+    // TODO Auto-generated method stub
+
+  }
+
 }

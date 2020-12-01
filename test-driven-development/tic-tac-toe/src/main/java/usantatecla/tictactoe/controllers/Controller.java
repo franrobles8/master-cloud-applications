@@ -15,5 +15,7 @@ public abstract class Controller {
 	public Token getToken(Coordinate coordinate) {
 		return this.game.getToken(coordinate);
 	}
+
+	public abstract void accept(ControllersVisitor controllersVisitor);
   
 }
