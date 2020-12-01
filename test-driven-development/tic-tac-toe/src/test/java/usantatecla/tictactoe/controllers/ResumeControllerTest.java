@@ -24,7 +24,7 @@ public class ResumeControllerTest {
     }
 
     @Test
-	void testGivenPlayControllerWhenAcceptThenControllersVisitorVisit() {
+	void testGivenResumeControllerWhenAcceptThenControllersVisitorVisit() {
         this.resumeController.accept(this.controllersVisitor);
 		verify(this.controllersVisitor).visit(this.resumeController);
     }
