@@ -34,26 +34,20 @@ public class CoordinateViewTest {
 
     @Test
     void testGivenNewCoordinateViewWhenReadCoordinateThenReturnCoordinate() {
-        try (MockedStatic console = mockStatic(Console.class)) {
             when(this.console.readInt(anyString())).thenReturn(1);
-            console.when(Console::getInstance).thenReturn(this.console);
             Coordinate coordinate = this.coordinateView.read("");
             verify(this.console).writeln("");
             assertThat(coordinate, is(new Coordinate(0, 0)));
-        }
     }
 
     @Test
     void testGivenNewCoordinateViewWhenReadInvalidCoordinateThenAssertError() {
-        try (MockedStatic console = mockStatic(Console.class)) {
             when(this.console.readInt(anyString())).thenReturn(4, 1);
-            console.when(Console::getInstance).thenReturn(this.console);
             assertThrows(AssertionError.class, () -> {
                 this.coordinateView.read("");
             });
             verify(this.console).writeln("");
             verify(this.console, times(2)).readInt(anyString());
-        }
     }
 
 }

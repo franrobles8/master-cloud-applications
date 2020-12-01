@@ -6,14 +6,19 @@ import usantatecla.utils.Console;
 
 public class CoordinateView {
 
+    private Console console;
+
+    public CoordinateView() {
+        this.console = Console.getInstance();
+    }
+
     public Coordinate read(String title) {
-        Console console = Console.getInstance();
         Coordinate coordinate;
         Error error;
         do {
 			console.writeln(title);
-            int row = console.readInt("Row: ") - 1;
-            int column = console.readInt("Column: ") - 1;
+            int row = this.console.readInt("Row: ") - 1;
+            int column = this.console.readInt("Column: ") - 1;
             assert column >= 0 && column <= Coordinate.DIMENSION-1;
             assert row >= 0 && row <= Coordinate.DIMENSION-1;
             coordinate = new Coordinate(row, column);
