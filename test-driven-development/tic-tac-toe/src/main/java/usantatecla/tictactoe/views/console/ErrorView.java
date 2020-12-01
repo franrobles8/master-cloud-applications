@@ -5,13 +5,16 @@ import usantatecla.utils.Console;
 
 class ErrorView extends usantatecla.tictactoe.views.ErrorView {
 
+	private Console console;
+
 	ErrorView(Error error) {
 		super(error);
+		this.console = Console.getInstance();
 	}
 	
 	void writeln() {
 		if (!error.isNull()){
-			Console.getInstance().writeln(ErrorView.MESSAGES[this.error.ordinal()]);
+			this.console.writeln(ErrorView.MESSAGES[this.error.ordinal()]);
 		}
 	}
 

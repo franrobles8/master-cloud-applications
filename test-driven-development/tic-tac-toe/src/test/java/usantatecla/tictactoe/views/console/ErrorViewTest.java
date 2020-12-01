@@ -35,24 +35,18 @@ public class ErrorViewTest {
 
     @Test
     void testGivenNewGameViewWhenWriteNullErrorThenNeverPrint() {
-        try (MockedStatic console = mockStatic(Console.class)) {
-            when(this.error.isNull()).thenReturn(true);
-            console.when(Console::getInstance).thenReturn(this.console);
-            this.errorView.writeln();
-            verify(this.console, never()).writeln(anyString());
-        }
+        when(this.error.isNull()).thenReturn(true);
+        this.errorView.writeln();
+        verify(this.console, never()).writeln(anyString());
     }
 
     @Test
     void testGivenNewGameViewWhenWriteNotNullErrorThenPrintErrorMessage() {
-        try (MockedStatic console = mockStatic(Console.class)) {
-            when(this.error.isNull()).thenReturn(false);
-            when(this.error.ordinal()).thenReturn(0);
-            console.when(Console::getInstance).thenReturn(this.console);
-            this.errorView.writeln();
-            verify(this.console).writeln(captor.capture());
-            assertThat(captor.getValue(), is("The square is not empty"));
-        }
+        when(this.error.isNull()).thenReturn(false);
+        when(this.error.ordinal()).thenReturn(0);
+        this.errorView.writeln();
+        verify(this.console).writeln(captor.capture());
+        assertThat(captor.getValue(), is("The square is not empty"));
     }
 
 }
