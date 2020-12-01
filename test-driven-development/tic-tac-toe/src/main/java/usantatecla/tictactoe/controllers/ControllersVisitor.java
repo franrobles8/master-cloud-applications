@@ -5,4 +5,6 @@ public interface ControllersVisitor {
     void visit(PlayController playController);
 
     void visit(ResumeController resumeController);
+
+    void visit(StartController startController);
 }
