@@ -7,10 +7,11 @@ import usantatecla.tictactoe.controllers.StartController;
 public class ConsoleView extends usantatecla.tictactoe.views.View {
     
     private  PlayView playView;
-    
+    private  ResumeView resumeView;
+
     public ConsoleView() {
         this.playView = new PlayView();
-
+        this.resumeView = new ResumeView();
     }
 
     @Override
@@ -21,7 +22,7 @@ public class ConsoleView extends usantatecla.tictactoe.views.View {
 
     @Override
     public void visit(ResumeController resumeController) {
-        // TODO Auto-generated method stub
+        this.resumeView.interact(resumeController);
 
     }
 
