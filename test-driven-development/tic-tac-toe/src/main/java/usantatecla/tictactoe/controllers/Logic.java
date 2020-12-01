@@ -1,60 +1,28 @@
 package usantatecla.tictactoe.controllers;
 
-import usantatecla.tictactoe.models.Coordinate;
+import java.util.HashMap;
+import java.util.Map;
 import usantatecla.tictactoe.models.Game;
-import usantatecla.tictactoe.models.Token;
-import usantatecla.tictactoe.types.Error;
+import usantatecla.tictactoe.models.State;
+import usantatecla.tictactoe.models.StateValue;
+
 
 public class Logic {
     private Game game;
-    private StartController startController;
-    private PlayController playController;
-    private ResumeController resumeController;
-
-    public Logic() {
-        this.game = new Game();
-        this.startController = new StartController(this.game);
-        this.playController = new PlayController(this.game);
-        this.resumeController = new ResumeController(this.game);
-    }
-
-    public void setUsers(int users) {
-        this.startController.setUsers(users);
-    }
-
-    public int getMaxPlayers() {
-        return this.startController.getMaxPlayers();
-    }
-
-    public boolean isBoardComplete() {
-        return this.playController.isBoardComplete();
-    }
-
-    public boolean isTicTacToe() {
-        return this.playController.isTicTacToe();
-    }
-
-    public Token getToken() {
-        return this.playController.getToken();
-    }
-
-    public Token getToken(Coordinate coordinate) {
-        return this.playController.getToken(coordinate);
-    }
-
-    public boolean isUser() {
-        return this.playController.isUser();
-    }
-
-    public Error put(Coordinate coordinate) {
-        return this.playController.put(coordinate);
-    }
-
-    public Error move(Coordinate origin, Coordinate target) {
-        return this.playController.move(origin, target);
-    }
-
-    public void resume() {
-        this.resumeController.resume();
-    }
+	private State state;
+	private Map<StateValue, Controller> controllers;
+	
+	public Logic() {
+		this.game = new Game();
+		this.state = new State();
+		this.controllers = new HashMap<StateValue, Controller>();
+	    this.controllers.put(StateValue.INITIAL, new StartController(this.game));
+	    this.controllers.put(StateValue.IN_GAME, new PlayController(this.game));
+	    this.controllers.put(StateValue.RESUME, new ResumeController(this.game));
+	    this.controllers.put(StateValue.EXIT, null);
+	}
+	
+	public Controller getController() {
+		return this.controllers.get(this.state.getStateValue());
+	}
 }
