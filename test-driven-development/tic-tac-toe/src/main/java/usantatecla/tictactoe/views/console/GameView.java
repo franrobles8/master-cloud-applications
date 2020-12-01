@@ -8,22 +8,24 @@ import usantatecla.utils.Console;
 class GameView {
 
 	private Controller controller;
+	private Console console;
 
 	GameView(Controller controller) {
-    	this.controller = controller;
+		this.controller = controller;
+		this.console = Console.getInstance();
   }
 
 	void write() {
-		Console.getInstance().writeln(Message.SEPARATOR.toString());
+		this.console.writeln(Message.SEPARATOR.toString());
 		for (int i = 0; i < Coordinate.DIMENSION; i++) {
-			Console.getInstance().write(Message.VERTICAL_LINE_LEFT.toString());
+			this.console.write(Message.VERTICAL_LINE_LEFT.toString());
 			for (int j = 0; j < Coordinate.DIMENSION; j++) {
 				new TokenView(this.controller.getToken(new Coordinate(i, j))).write();
-				Console.getInstance().write(Message.VERTICAL_LINE_CENTERED.toString());
+				this.console.write(Message.VERTICAL_LINE_CENTERED.toString());
 			}
-			Console.getInstance().writeln(Message.VERTICAL_LINE_RIGHT.toString());
+			this.console.writeln(Message.VERTICAL_LINE_RIGHT.toString());
 		}
-		Console.getInstance().writeln(Message.SEPARATOR.toString());
+		this.console.writeln(Message.SEPARATOR.toString());
 	}
 
 }

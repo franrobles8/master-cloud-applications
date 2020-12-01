@@ -39,9 +39,7 @@ public class GameViewTest {
 
     @Test
     void testGivenNewGameViewWhenWriteThenPrintBoard() {
-        try (MockedStatic console = mockStatic(Console.class)) {
             when(this.controller.getToken(any(Coordinate.class))).thenReturn(Token.X);
-            console.when(Console::getInstance).thenReturn(this.console);
             this.gameView.write();
             verify(this.console, times(2)).writeln(Message.SEPARATOR.toString());
             verify(this.console, times(3)).write(Message.VERTICAL_LINE_LEFT.toString());
@@ -51,7 +49,6 @@ public class GameViewTest {
             assertThat(captor.getAllValues().toString(), is("[| , X,  | , X,  | , X,  | , " +
                                                                    "| , X,  | , X,  | , X,  | , " +
                                                                    "| , X,  | , X,  | , X,  | ]"));
-        }
     }
 
 }
