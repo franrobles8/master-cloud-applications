@@ -13,6 +13,7 @@ import usantatecla.utils.Console;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
@@ -43,14 +44,15 @@ public class CoordinateViewTest {
     }
 
     @Test
-    void testGivenNewCoordinateViewWhenReadInvalidCoordinateThenReadValidCoordinateAndReturnValidCoordinate() {
+    void testGivenNewCoordinateViewWhenReadInvalidCoordinateThenAssertError() {
         try (MockedStatic console = mockStatic(Console.class)) {
             when(this.console.readInt(anyString())).thenReturn(4, 1);
             console.when(Console::getInstance).thenReturn(this.console);
-            Coordinate coordinate = this.coordinateView.read("");
-            verify(this.console, times(2)).writeln("");
-            verify(this.console, times(4)).readInt(anyString());
-            assertThat(coordinate, is(new Coordinate(0, 0)));
+            assertThrows(AssertionError.class, () -> {
+                this.coordinateView.read("");
+            });
+            verify(this.console).writeln("");
+            verify(this.console, times(2)).readInt(anyString());
         }
     }
 
