@@ -14,6 +14,8 @@ public class CoordinateView {
 			console.writeln(title);
             int row = console.readInt("Row: ") - 1;
             int column = console.readInt("Column: ") - 1;
+            assert column >= 0 && column <= Coordinate.DIMENSION-1;
+            assert row >= 0 && row <= Coordinate.DIMENSION-1;
             coordinate = new Coordinate(row, column);
             error = coordinate.isValid();
             new ErrorView(error).writeln();
