@@ -6,22 +6,30 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import usantatecla.tictactoe.controllers.Logic;
+import usantatecla.tictactoe.controllers.PlayController;
+import usantatecla.tictactoe.controllers.ResumeController;
+import usantatecla.tictactoe.controllers.StartController;
+import usantatecla.tictactoe.views.View;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 
 public class ConsoleViewTest {
     @Mock
-    private StartView startView;
+    private View view;
 
     @Mock
-    private PlayView playView;
+    private StartController startController;
 
     @Mock
-    private ResumeView resumeView;
+    private PlayController playController;
+
+    @Mock
+    private ResumeController resumeController;
 
     @InjectMocks
-    private ConsoleView consoleView = new ConsoleView(new Logic());
+    private ConsoleView consoleView = new ConsoleView();
 
     @BeforeEach
     void before() {
@@ -29,20 +37,21 @@ public class ConsoleViewTest {
     }
 
     @Test
-    public void givenConsoleViewTestWhenStartThenInteractsWithStartView() {
-        this.consoleView.start();
-        verify(startView, times(1)).interact();
+    public void givenConsoleViewTestWhenStartThenInteractsWithStartController() {
+        this.consoleView.interact(this.startController);
+        verify(startController, times(1)).accept(this.view);
     }
 
     @Test
-    public void givenConsoleViewTestWhenPlayThenInteractsWithPlayView() {
-        this.consoleView.play();
-        verify(playView, times(1)).interact();
+    public void givenConsoleViewTestWhenPlayThenInteractsWithPlayController() {
+        this.consoleView.interact(this.playController);
+        verify(playController, times(1)).accept(this.view);
     }
 
     @Test
-    public void givenConsoleViewTestWhenIsResumedThenInteractsWithResumeView() {
-        this.consoleView.isResumed();
-        verify(resumeView, times(1)).interact();
+    public void givenConsoleViewTestWhenIsResumedThenInteractsWithResumeController() {
+        this.consoleView.interact(this.resumeController);
+        verify(resumeController, times(1)).accept(this.view);
     }
+
 }

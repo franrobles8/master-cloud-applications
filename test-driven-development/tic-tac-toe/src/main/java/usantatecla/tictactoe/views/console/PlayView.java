@@ -1,31 +1,27 @@
 package usantatecla.tictactoe.views.console;
 
-import usantatecla.tictactoe.controllers.Logic;
+import usantatecla.tictactoe.controllers.PlayController;
 import usantatecla.tictactoe.models.Coordinate;
 import usantatecla.tictactoe.views.Message;
 import usantatecla.tictactoe.types.Error;
 
-class PlayView extends SubView {
+class PlayView {
 
-    PlayView(Logic logic) {
-        super(logic);
-    }
-
-    void interact() {
+    void interact(PlayController playController) {
         do {
-            if (!this.logic.isBoardComplete()) {
-                this.put();
+            if (!playController.isBoardComplete()) {
+                this.put(playController);
             } else {
-                this.move();
+                this.move(playController);
             }
-            new GameView(this.logic).write();
-        } while (!this.logic.isTicTacToe());
-        new TokenView(this.logic.getToken()).write();
+            new GameView(playController).write();
+        } while (!playController.isTicTacToe());
+        new TokenView(playController.getToken()).write();
         Message.PLAYER_WIN.writeln();
     }
 
-    private void put() {
-        boolean isUser = this.logic.isUser();
+    private void put(PlayController playController) {
+        boolean isUser = playController.isUser();
         Coordinate coordinate;
         Error error;
         do {
@@ -34,15 +30,15 @@ class PlayView extends SubView {
             } else {
                 coordinate = createRandomCoordinate();
             }
-            error = this.logic.put(coordinate);
+            error = playController.put(coordinate);
             if (isUser) {
                 new ErrorView(error).writeln();
             }
         } while (!error.isNull());
     }
 
-    private void move() {
-        boolean isUser = this.logic.isUser();
+    private void move(PlayController playController) {
+        boolean isUser = playController.isUser();
         Coordinate origin;
         Coordinate target;
         Error error;
@@ -54,7 +50,7 @@ class PlayView extends SubView {
                 origin = createRandomCoordinate();
                 target = createRandomCoordinate();
             }
-            error = this.logic.move(origin, target);
+            error = playController.move(origin, target);
             if (isUser) {
                 new ErrorView(error).writeln();
             }
