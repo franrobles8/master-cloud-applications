@@ -27,6 +27,15 @@ public class ConsoleViewTest {
     @Mock
     private ResumeController resumeController;
 
+    @Mock
+    private StartView startView;
+
+    @Mock
+    private PlayView playView;
+
+    @Mock
+    private ResumeView resumeView;
+
     @InjectMocks
     private ConsoleView consoleView = new ConsoleView();
 
@@ -38,19 +47,19 @@ public class ConsoleViewTest {
     @Test
     public void givenConsoleViewTestWhenStartThenInteractsWithStartController() {
         this.consoleView.interact(this.startController);
-        verify(startController, times(1)).accept(this.view);
+        verify(startView, times(1)).interact(this.startController);
     }
 
     @Test
     public void givenConsoleViewTestWhenPlayThenInteractsWithPlayController() {
         this.consoleView.interact(this.playController);
-        verify(playController, times(1)).accept(this.view);
+        verify(playView, times(1)).interact(this.playController);
     }
 
     @Test
     public void givenConsoleViewTestWhenIsResumedThenInteractsWithResumeController() {
         this.consoleView.interact(this.resumeController);
-        verify(resumeController, times(1)).accept(this.view);
+        verify(resumeView, times(1)).interact(this.resumeController);
     }
 
 }

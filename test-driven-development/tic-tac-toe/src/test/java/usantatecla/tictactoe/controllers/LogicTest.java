@@ -18,7 +18,7 @@ public class LogicTest {
 	
 	@Test
 	void testGivenNewLogicWhenGetControllerThenController() {
-		assertThat(this.logic.getController(), is(Controller.class));
+		assertThat(this.logic.getController(), is(StartController.class));
 	}
 	
 	@Test
