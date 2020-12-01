@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import usantatecla.tictactoe.controllers.Logic;
 import usantatecla.tictactoe.controllers.PlayController;
 import usantatecla.tictactoe.controllers.ResumeController;
 import usantatecla.tictactoe.controllers.StartController;
