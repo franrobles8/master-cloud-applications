@@ -8,15 +8,12 @@ import org.mockito.MockitoAnnotations;
 import usantatecla.tictactoe.controllers.PlayController;
 import usantatecla.tictactoe.controllers.ResumeController;
 import usantatecla.tictactoe.controllers.StartController;
-import usantatecla.tictactoe.views.View;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 
 public class ConsoleViewTest {
-    @Mock
-    private View view;
 
     @Mock
     private StartController startController;
@@ -46,38 +43,38 @@ public class ConsoleViewTest {
 
     @Test
 	void testGivenViewWhenInteractStartControllerThenStartViewInteractWithStartController() {
-		this.view.interact(startController);
-	    verify(this.startController).accept(this.view);
+		this.consoleView.interact(startController);
+	    verify(this.startController).accept(this.consoleView);
 	}
 	
 	@Test
 	void testGivenViewWhenInteractPlayControllerThenPlayViewInteractWithPlayController() {
-		this.view.interact(playController);
-		verify(this.playController).accept(this.view);
+		this.consoleView.interact(playController);
+		verify(this.playController).accept(this.consoleView);
 	}
 	
 	@Test
 	void testGivenViewWhenInteractResumeControllerThenResumeViewInteractWithResumeController() {
-		this.view.interact(resumeController);
-		verify(this.resumeController).accept(this.view);
+		this.consoleView.interact(resumeController);
+		verify(this.resumeController).accept(this.consoleView);
     }
     
     @Test
     public void givenConsoleViewTestWhenStartThenInteractsWithStartController() {
-        this.consoleView.interact(this.startController);
-        verify(startView, times(1)).interact(this.startController);
+        this.consoleView.visit(this.startController);
+        verify(this.startView, times(1)).interact(this.startController);
     }
 
     @Test
     public void givenConsoleViewTestWhenPlayThenInteractsWithPlayController() {
-        this.consoleView.interact(this.playController);
-        verify(playView, times(1)).interact(this.playController);
+        this.consoleView.visit(this.playController);
+        verify(this.playView, times(1)).interact(this.playController);
     }
 
     @Test
     public void givenConsoleViewTestWhenIsResumedThenInteractsWithResumeController() {
-        this.consoleView.interact(this.resumeController);
-        verify(resumeView, times(1)).interact(this.resumeController);
+        this.consoleView.visit(this.resumeController);
+        verify(this.resumeView, times(1)).interact(this.resumeController);
     }
 
 }
