@@ -16,7 +16,7 @@ public class CoordinateView {
         Coordinate coordinate;
         Error error;
         do {
-			console.writeln(title);
+			this.console.writeln(title);
             int row = this.console.readInt("Row: ") - 1;
             int column = this.console.readInt("Column: ") - 1;
             assert column >= 0 && column <= Coordinate.DIMENSION-1;
