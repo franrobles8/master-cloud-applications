@@ -18,9 +18,11 @@ public enum Message {
 	RESUME("Do you want to continue");
 
 	private String message;
+	private Console console;
 
 	Message(String message) {
 		this.message = message;
+		this.console = Console.getInstance();
 	}
 
 	public String getMessage() {
@@ -28,11 +30,11 @@ public enum Message {
 	}
 
 	public void write() {
-		Console.getInstance().write(this.message);
+		this.console.write(this.message);
 	}
 
 	public void writeln() {
-		Console.getInstance().writeln(this.message);
+		this.console.writeln(this.message);
 	}
 
 	@Override
