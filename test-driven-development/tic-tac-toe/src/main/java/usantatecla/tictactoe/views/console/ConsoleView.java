@@ -1,18 +1,21 @@
 package usantatecla.tictactoe.views.console;
 
-import usantatecla.tictactoe.controllers.Logic;
 import usantatecla.tictactoe.controllers.PlayController;
 import usantatecla.tictactoe.controllers.ResumeController;
 import usantatecla.tictactoe.controllers.StartController;
 
 public class ConsoleView extends usantatecla.tictactoe.views.View {
     
+    private  PlayView playView;
+    
     public ConsoleView() {
+        this.playView = new PlayView();
+
     }
 
     @Override
     public void visit(PlayController playController) {
-        // TODO Auto-generated method stub
+        this.playView.interact(playController);
 
     }
 
