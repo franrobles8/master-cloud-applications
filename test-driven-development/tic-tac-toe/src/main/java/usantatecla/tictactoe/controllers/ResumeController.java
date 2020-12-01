@@ -14,8 +14,7 @@ public class ResumeController extends Controller {
 
   @Override
   public void accept(ControllersVisitor controllersVisitor) {
-    // TODO Auto-generated method stub
-
+    controllersVisitor.visit(this);
   }
 
 }
