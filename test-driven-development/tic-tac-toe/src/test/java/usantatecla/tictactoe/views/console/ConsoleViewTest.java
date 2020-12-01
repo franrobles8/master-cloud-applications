@@ -45,6 +45,24 @@ public class ConsoleViewTest {
     }
 
     @Test
+	void testGivenViewWhenInteractStartControllerThenStartViewInteractWithStartController() {
+		this.view.interact(startController);
+	    verify(this.startController).accept(this.view);
+	}
+	
+	@Test
+	void testGivenViewWhenInteractPlayControllerThenPlayViewInteractWithPlayController() {
+		this.view.interact(playController);
+		verify(this.playController).accept(this.view);
+	}
+	
+	@Test
+	void testGivenViewWhenInteractResumeControllerThenResumeViewInteractWithResumeController() {
+		this.view.interact(resumeController);
+		verify(this.resumeController).accept(this.view);
+    }
+    
+    @Test
     public void givenConsoleViewTestWhenStartThenInteractsWithStartController() {
         this.consoleView.interact(this.startController);
         verify(startView, times(1)).interact(this.startController);
