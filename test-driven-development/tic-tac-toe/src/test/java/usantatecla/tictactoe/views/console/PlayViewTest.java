@@ -38,7 +38,7 @@ public class PlayViewTest {
 
     @Test
     void testGivenNewPlayViewWhenUserPlayerPutCoordinateThenGamePutCoordinate() {
-        try (MockedStatic console = mockStatic(Console.class)) {
+        try (MockedStatic<Console> console = mockStatic(Console.class)) {
             when(this.playController.isBoardComplete()).thenReturn(false);
             when(this.playController.isUser()).thenReturn(true);
             when(this.console.readInt(anyString())).thenReturn(1);
@@ -55,7 +55,7 @@ public class PlayViewTest {
 
     @Test
     void testGivenNewPlayViewWhenMachinePlayerPutCoordinateThenGamePutCoordinate() {
-        try (MockedStatic console = mockStatic(Console.class)) {
+        try (MockedStatic<Console> console = mockStatic(Console.class)) {
             Coordinate coordinate = new Coordinate(0, 0);
             when(this.playController.isBoardComplete()).thenReturn(false);
             when(this.playController.isUser()).thenReturn(false);
@@ -73,7 +73,7 @@ public class PlayViewTest {
 
     @Test
     void testGivenNewPlayViewWhenUserPlayerMoveOriginToTargetThenGameMoveOriginToTarget() {
-        try (MockedStatic console = mockStatic(Console.class)) {
+        try (MockedStatic<Console> console = mockStatic(Console.class)) {
             when(this.playController.isBoardComplete()).thenReturn(true);
             when(this.playController.isUser()).thenReturn(true);
             when(this.console.readInt(anyString())).thenReturn(1, 1, 2, 2);
@@ -90,7 +90,7 @@ public class PlayViewTest {
 
     @Test
     void testGivenNewPlayViewWhenMachinePlayerMoveOriginToTargetThenGameMoveOriginToTarget() {
-        try (MockedStatic console = mockStatic(Console.class)) {
+        try (MockedStatic<Console> console = mockStatic(Console.class)) {
             Coordinate origin = new Coordinate(0, 0);
             Coordinate target = new Coordinate(0, 0);
             when(this.playController.isBoardComplete()).thenReturn(true);
