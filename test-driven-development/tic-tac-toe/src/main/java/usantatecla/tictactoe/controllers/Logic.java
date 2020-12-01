@@ -23,6 +23,6 @@ public class Logic {
 	}
 	
 	public Controller getController() {
-		return this.controllers.get(this.state.getStateValue());
+		return this.controllers.get(this.state.getValueState());
 	}
 }
